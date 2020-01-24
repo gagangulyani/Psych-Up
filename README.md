@@ -1,7 +1,7 @@
 # Knowledge Checker
 ### A place to test your Knowledge
 
-## This site provides Users a set of Questions (Quiz) by selecting a Particular Category 
+>*This site provides Users a set of Questions (Quiz) by selecting a Particular Category*
 
 ## Features:
 + Wide Range of Categories
