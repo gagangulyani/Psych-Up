@@ -80,7 +80,10 @@ class User:
             return User.DB.find_one({'_id': _id})
 
     def update_user_info(self):
-        pass        
+        self.user_db.update_one(
+            {"_id": self._id},
+            {'$set': self.to_dict()}
+        )
 
     def delete_user(self):
         return self.user_db.delete_one({'_id': self._id})
@@ -111,6 +114,16 @@ if __name__ == "__main__":
 
     usr1.save_user()
 
+    # Displaying Record
+    pprint(usr1.get_user().to_dict())
+
+    # Changing Name of the user
+    usr1.name = "Gagan Gulyani"
+
+    # Updating record in User DB
+    usr1.update_user_info()
+
+    # Displaying updated Record
     pprint(usr1.get_user().to_dict())
 
     print("User Deleted Successfully!" if usr1.delete_user()

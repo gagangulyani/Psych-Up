@@ -65,6 +65,13 @@ class Database(object):
     def created_at(_id):
         return _id.generation_time
 
+    @staticmethod
+    def update_one(query, update_query):
+        Database.CURSOR.update_one(query, update_query)
+    
+    @staticmethod
+    def update_many(query, update_query):
+        Database.CURSOR.update_many(query, update_query)
 
 if __name__ == "__main__":
     import pprint
@@ -87,6 +94,16 @@ if __name__ == "__main__":
     # Display All Records (in pretified version)
     pprint.pprint(db.find())
 
+    # Updating field of one record
+    db.update_one({'name': 'Gagan Deep Singh'}, {'$set': {'age': 22}})
+    
+    pprint.pprint(db.find())
+    
+    # Updating field of All Records
+    db.update_many({}, {'$set': {'number_of_wins': 0}})
+    
+    pprint.pprint(db.find())
+    
     # Delete All Records
     print("All records Deleted!" if db.delete_many({})
           else "Couldn't Find Any Record To Delete")
