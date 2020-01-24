@@ -24,26 +24,58 @@ class Database(object):
     def find_one(self, query):
         return Database.CURSOR.find_one(query)
 
-    def find(self, query = {}, to_list=True):
+    def find(self, query={}, to_list=True):
         result = Database.CURSOR.find(query)
         if to_list:
             return list(result)
         return result
 
     def delete_one(self, query):
-        return Database.CURSOR.delete_one(query)
+        """
+            Returns True if record is deleted
+            Else False
+        """
+        if Database.CURSOR.delete_one(query).raw_result['n'] == 1:
+            return True
+        return False
 
     def delete_many(self, query):
-        return Database.CURSOR.delete_many(query)
+        """
+            Returns True if record is deleted
+            Else False
+        """
+        if Database.CURSOR.delete_many(query).raw_result['n'] > 0:
+            return True
+        return False
 
     def count_documents(self, query={}):
         return Database.CURSOR.count_documents(query)
 
 
 if __name__ == "__main__":
+    import pprint
+
     db = Database()
     db.set_collection('Users')
 
-    print(db.find())
-    print(db.delete_many({}))
-    print(db.find())
+
+    # Test Insert Function
+    db.insert_one({'name': 'Gagan Deep Singh', 'age': 21,
+                  'number_of_wins': 2, 't_score': 750})
+
+    db.insert_many(
+        [
+            {'name': 'Hardik Soni', 'age': 21, 'number_of_wins': 3, 't_score': 1200},
+            {'name': 'Mayank Setia', 'age': 21, 'number_of_wins': 2, 't_score': 900}
+
+        ]
+    )
+
+    # Display All Records (in pretified version)
+    pprint.pprint(db.find())
+    
+    # Delete All Records
+    print("All records Deleted!" if db.delete_many({}) else "Couldn't Find Any Record To Delete")
+    
+    # Display All
+    pprint.pprint(db.find() if db.find() else "Couln't find any record to Display!")
