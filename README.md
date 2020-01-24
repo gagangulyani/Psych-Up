@@ -15,3 +15,6 @@
     
 + Getting TimeStamp from ObjectId
     https://stackoverflow.com/questions/11961952/objectid-object-has-no-attribute-gettimestamp
+
++ Markdown Cheatsheet
+    https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet
