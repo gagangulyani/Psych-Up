@@ -12,3 +12,6 @@
 ### References 
     * PyMongo 3.9.0 documentation for making transactions with MongoDB with Python
         https://api.mongodb.com/python/current/tutorial.html
+    
+    * Getting TimeStamp from ObjectId
+        https://stackoverflow.com/questions/11961952/objectid-object-has-no-attribute-gettimestamp
