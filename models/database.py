@@ -8,9 +8,11 @@ class Database(object):
     """
     CURSOR = None
 
-    def __init__(self, DB_NAME='Knowledge-Checker'):
+    def __init__(self, DB_NAME='Knowledge-Checker', COLLECTION = None):
         self.client = MongoClient('localhost', 27017)
         self.DB_NAME = DB_NAME
+        if COLLECTION:
+            self.set_collection(COLLECTION)
 
     def set_collection(self, COLLECTION):
         Database.CURSOR = self.client[self.DB_NAME][COLLECTION]

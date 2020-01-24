@@ -6,3 +6,5 @@ config
 description
 hooks/
 info/
+models/__pycache__/
+__pycache__/
