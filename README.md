@@ -1,5 +1,5 @@
 # Knowledge Checker
-### A place to test your Knowledge
+### a place to test your *Knowledge*
 
 >*This site provides Users a set of Questions (Quiz) by selecting a Particular Category*
 
