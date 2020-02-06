@@ -1,4 +1,4 @@
-# Knowledge Checker
+# Psych Up
 
 >*This site provides Users a set of Questions (Quiz) by selecting a Particular Category*
 
