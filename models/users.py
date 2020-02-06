@@ -1,6 +1,6 @@
-from database import Database
-from quiz import Quiz
+from models.database import Database
 from pprint import pprint
+from bson import ObjectId
 
 
 class User:
@@ -65,6 +65,7 @@ class User:
     def save_user(self):
         _id = self.user_db.insert_one(self.to_dict())
         self._id = _id
+        return _id
 
     def get_user(self, username=True, _id=False):
         if username:
@@ -75,9 +76,9 @@ class User:
     @staticmethod
     def get_user_info(username=None, _id=None):
         if username:
-            return User.DB.find_one({'username': username})
+            return User.to_class(User.DB.find_one({'username': username}))
         elif _id:
-            return User.DB.find_one({'_id': _id})
+            return User.to_class(User.DB.find_one({'_id': _id}))
 
     def update_user_info(self):
         self.user_db.update_one(
@@ -89,42 +90,106 @@ class User:
         return self.user_db.delete_one({'_id': self._id})
 
     def follow_user(self, user):
-        pass
 
-    def unfollow_user(self):
-        pass
+        followed = False
 
-    def get_followers(self):
-        pass
+        if self._id not in user.followers:
+            user.followers.append(self._id)
+            followed = True
 
-    def get_followings(self):
-        pass
+        if user._id not in self.following:
+            self.following.append(user._id)
+            followed = True
+
+        if followed:
+            self.update_user_info()
+            user.update_user_info()
+
+        return followed
+
+    def unfollow_user(self, user):
+        unfollowed = False
+        if self._id in user.followers:
+            user.followers.remove(self._id)
+            unfollowed = True
+
+        if user._id in self.following:
+            self.following.remove(user._id)
+            unfollowed = True
+
+        if unfollowed:
+            self.update_user_info()
+            user.update_user_info()
+
+        return unfollowed
+
+    def get_followers(self, limit=0):
+        # finds all users user is following
+        pipeline = [
+            {
+                "$graphLookup": {
+                    "from": "Users",
+                    "startWith": "$followers",
+                    "connectFromField": "followers",
+                    "connectToField": "_id",
+                    "as": "followers"
+                }
+            },
+            {
+                "$match": {
+                    "_id": self._id
+                }
+            },
+            {
+                "$project": {
+                    "name": 1,
+                    "followers": "$followers",
+                }
+            }
+        ]
+
+        if limit:
+            pipeline.append({'$limit': limit})
+
+        return list(self.user_db.CURSOR.aggregate(pipeline))
+
+    def get_following(self, limit=0):
+        # finds all users self is following
+        pipeline = [
+            {
+                "$graphLookup": {
+                    "from": "Users",
+                    "startWith": "$following",
+                    "connectFromField": "following",
+                    "connectToField": "_id",
+                    "as": "following"
+                }
+            },
+            {
+                "$match": {
+                    "_id": self._id
+                }
+            },
+            {
+                "$project": {
+                    "name": 1,
+                    "following": "$following",
+                }
+            }
+        ]
+
+        if limit:
+            pipeline.append({'$limit': limit})
+
+        return list(self.user_db.CURSOR.aggregate(pipeline))
 
     def play_quiz(self):
         pass
 
+    @staticmethod
+    def get_all_users():
+        return User.DB.find()
+
 
 if __name__ == "__main__":
-    usr1 = User(
-        name="Gagan Deep Singh",
-        username="gagangulyani",
-        password='Test@Test123',
-        age=21
-    )
-
-    usr1.save_user()
-
-    # Displaying Record
-    pprint(usr1.get_user().to_dict())
-
-    # Changing Name of the user
-    usr1.name = "Gagan Gulyani"
-
-    # Updating record in User DB
-    usr1.update_user_info()
-
-    # Displaying updated Record
-    pprint(usr1.get_user().to_dict())
-
-    print("User Deleted Successfully!" if usr1.delete_user()
-          else "Something Went Wrong while finding user")
+    pprint(User.get_all_users())

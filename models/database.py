@@ -9,7 +9,7 @@ class Database(object):
     """
     CURSOR = None
 
-    def __init__(self, DB_NAME='Knowledge-Checker', COLLECTION=None):
+    def __init__(self, DB_NAME='Psych-Up', COLLECTION=None):
         self.client = MongoClient('localhost', 27017)
         self.DB_NAME = DB_NAME
         if COLLECTION:
