@@ -1,4 +1,8 @@
-from models.database import Database
+try:
+    from models.database import Database
+except ImportError:
+    from database import Database
+
 from pprint import pprint
 from bson import ObjectId
 
@@ -54,10 +58,10 @@ class User:
 
         return result
 
-    @staticmethod
-    def to_class(dict_obj):
+    @classmethod
+    def to_class(cls, dict_obj):
         if dict_obj:
-            return User(**dict_obj)
+            return cls(**dict_obj)
 
     def display_user_info(self):
         pprint(self.to_dict())
@@ -173,6 +177,7 @@ class User:
             {
                 "$project": {
                     "name": 1,
+                    "_id": 1,
                     "following": "$following",
                 }
             }
@@ -190,6 +195,23 @@ class User:
     def get_all_users():
         return User.DB.find()
 
+    def __repr__(self):
+        return str(
+            {
+                "name": self.name,
+                "username": self.username,
+                "password": self.password,
+                "age": self.age,
+                "number_of_wins": self.number_of_wins,
+                "history": self.history,
+                "followers": self.followers,
+                "following": self.following,
+                "total_score": self.total_score,
+                "_id": self._id
+            }
+        )
+
 
 if __name__ == "__main__":
-    pprint(User.get_all_users())
+    usr1 = User.get_user_info(_id=User.get_all_users()[0]['_id'])
+    print(usr1)
