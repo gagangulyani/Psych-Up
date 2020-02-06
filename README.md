@@ -18,8 +18,8 @@
 + Markdown Cheatsheet
     https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet
 
-+ Aggregate Functions
++ Project Aggregate Function in MongoDB
     https://docs.mongodb.com/manual/reference/operator/aggregation/project/
 
-+ GraphLookup in MongoDB
++ GraphLookup Aggregate Function in MongoDB
     https://docs.mongodb.com/manual/reference/operator/aggregation/graphLookup/
