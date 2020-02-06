@@ -23,3 +23,6 @@
 
 + GraphLookup Aggregate Function in MongoDB
     https://docs.mongodb.com/manual/reference/operator/aggregation/graphLookup/
+
++ Class Method in Python
+    https://www.geeksforgeeks.org/classmethod-in-python/
