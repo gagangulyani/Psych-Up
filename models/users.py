@@ -9,7 +9,8 @@ from bson import ObjectId
 
 class User:
 
-    DB = Database(COLLECTION='Users')
+    COLLECTION = 'Users'
+    DB = Database()
 
     def __init__(
         self,
@@ -34,7 +35,6 @@ class User:
         self.followers = followers
         self.following = following
         self.total_score = total_score
-        self.user_db = User.DB
 
     def to_dict(self):
         """
@@ -67,31 +67,31 @@ class User:
         pprint(self.to_dict())
 
     def save_user(self):
-        _id = self.user_db.insert_one(self.to_dict())
+        _id = User.DB.insert_one(User.COLLECTION, self.to_dict())
         self._id = _id
         return _id
 
     def get_user(self, username=True, _id=False):
         if username:
-            return User.to_class(self.user_db.find_one({'username': self.username}))
+            return User.to_class(User.DB.find_one(User.COLLECTION, {'username': self.username}))
         elif _id:
-            return User.to_class(self.user_db.find_one({'_id': self._id}))
+            return User.to_class(User.DB.find_one(User.COLLECTION, {'_id': self._id}))
 
     @staticmethod
     def get_user_info(username=None, _id=None):
         if username:
-            return User.to_class(User.DB.find_one({'username': username}))
+            return User.to_class(User.DB.find_one(User.COLLECTION, {'username': username}))
         elif _id:
-            return User.to_class(User.DB.find_one({'_id': _id}))
+            return User.to_class(User.DB.find_one(User.COLLECTION, {'_id': _id}))
 
     def update_user_info(self):
-        self.user_db.update_one(
+        User.DB.update_one(User.COLLECTION, 
             {"_id": self._id},
             {'$set': self.to_dict()}
         )
 
     def delete_user(self):
-        return self.user_db.delete_one({'_id': self._id})
+        return User.DB.delete_one(User.COLLECTION, {'_id': self._id})
 
     def follow_user(self, user):
 
@@ -155,7 +155,7 @@ class User:
         if limit:
             pipeline.append({'$limit': limit})
 
-        return list(self.user_db.CURSOR.aggregate(pipeline))
+        return list(User.DB.CURSOR[User.COLLECTION].aggregate(pipeline))
 
     def get_following(self, limit=0):
         # finds all users self is following
@@ -186,14 +186,14 @@ class User:
         if limit:
             pipeline.append({'$limit': limit})
 
-        return list(self.user_db.CURSOR.aggregate(pipeline))
+        return list(User.DB.CURSOR[User.COLLECTION].aggregate(pipeline))
 
     def play_quiz(self):
         pass
 
     @staticmethod
     def get_all_users():
-        return User.DB.find()
+        return User.DB.find(User.COLLECTION)
 
     def __repr__(self):
         return str(
@@ -214,4 +214,11 @@ class User:
 
 if __name__ == "__main__":
     usr1 = User.get_user_info(_id=User.get_all_users()[0]['_id'])
-    print(usr1)
+    usr1.name = "Gagan Gulyani"
+    usr1.update_user_info()
+    usr2 = User.get_user_info(_id=User.get_all_users()[1]['_id'])
+    usr2.follow_user(usr1)
+    
+    print(usr1.get_followers())
+    
+    # print(usr1.get_user(username=usr1.username))
