@@ -10,6 +10,7 @@ except:
 
 from bson import ObjectId
 
+
 class Quiz:
 
     COLLECTION = "Quiz"
@@ -61,65 +62,88 @@ class Quiz:
         )
 
     @staticmethod
-    def get_questions(userID, limit=10):
+    def get_questions(userID, limit=10, show_history=False):
+
+        display_new_questions = show_history
+
         pipeline = [
             {
-                "$project": {
-                    "questions": "$question",
-                    "options": "$options",
-                    "answer": "$answer",
+                '$project': {
+                    'question': '$question',
+                    'options': '$options',
+                    'answer': '$answer',
+                    'attempts': '$attempts'
                 }
             },
             {
-                "$match": {
-                    "_id": {
-                        "$not": {
-                            "$in": "$attempts"
+                '$match': {
+                    '$or': [
+                        {
+                            f'attempts.{str(userID)}.is_correct': False
+                        },
+                        {
+                            f'attempts.{str(userID)}': {
+                                '$exists': display_new_questions
+                            }
                         }
-                    }
+                    ]
                 }
             },
             {
                 "$limit": limit
             }
         ]
-        return list(Quiz.DB.CURSOR[Quiz.COLLECTION].aggregate(pipeline))
+        if show_history:
+            # deleting query
+            # which created a filter to display quesions which user attempted
+            del pipeline[1]['$match']['$or'][0]
+            # print(pipeline)
+
+        return [
+            Quiz.to_class(i) for i in list(
+                Quiz.DB.CURSOR[Quiz.COLLECTION].aggregate(pipeline)
+            )
+        ]
 
     @staticmethod
-    def get_attempts(limit=10, skip=10):
-        pass
+    def get_attempts(usr):
+        return Quiz.get_questions(userID=usr._id, limit=100, show_history=True)
 
     @staticmethod
-    def attempt_question(userID, answer, question):
+    def attempt_question(usr, answer, question):
+        # IMPORTANT: User's ObjectId is converted into string
+        #            for storing it as a key in attempts Dictionary
         result = question.answer == answer
-        question.attempts.update({userID: {"is_correct": result}})
+        question.attempts.update({str(usr._id): {"is_correct": result}})
+        if result:
+            usr.total_score += 10
+            usr.update_user_info()
         question.update_quiz_info()
         return result
 
 
 if __name__ == "__main__":
-    q1 = Quiz(
-        question="What ka matlab kya hai?",
-        category="random",
-        options=[
-            'Kya hai?', 'Kya hai??', 'Kya hai', 'kya'
-        ],
-        answer='kya',
-        _id=ObjectId("5e3d8709d05d92db07c4c739")
-    )
-
-    q2 = Quiz(
-        question="Why dis Kolaveri Di?",
-        category="random",
-        options=[
-            'Di', 'DiDi', 'DiDiDi', 'Di!!'
-        ],
-        answer='Di'
-    )
-
     # q1.save_quiz()
     # q2.save_quiz()
     # print(User.get_all_users()[0])
-    usr = User.get_user_info(_id=User.get_all_users()[0]['_id'])
-    print(Quiz.attempt_question(usr._id, "kyas", q1))
-    # print(usr)
+    users = [
+        User.get_user_info(
+            _id=User.get_all_users()[i]['_id']
+        ) for i in range(3)
+    ]
+
+    questions = [
+        Quiz.get_questions(
+            userID=users[i]._id
+        ) for i in range(3)
+    ]
+
+    # print(questions[0][0])
+
+    print(Quiz.attempt_question(users[0], "kya", questions[0][0]))
+    print(Quiz.attempt_question(users[1], "kyas", questions[0][0]))
+    print(Quiz.attempt_question(users[2], "kyas", questions[0][0]))
+    # # print(usr)
+
+    # print("Attempts: ")
+    print(Quiz.get_attempts(users[0]))
