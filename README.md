@@ -32,3 +32,6 @@
 
 + Adding Favicon to Web Page
     https://www.w3.org/2005/10/howto-favicon
+
++ Macros (functions) in Jinja
+    https://uniwebsidad.com/libros/explore-flask/chapter-8/creating-macros
