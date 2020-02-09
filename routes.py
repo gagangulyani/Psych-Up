@@ -13,7 +13,7 @@ def index():
 
 @app.route('/play')
 def play_quiz():
-    return ""
+    return render_template("select_quiz.html")
 
 @app.route('/login')
 def login():
@@ -21,6 +21,7 @@ def login():
 
 @app.route('/signup')
 def signup():
+    print(request.path)
     return render_template("signup.html")
 
 if __name__ == "__main__":

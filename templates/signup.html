@@ -1,0 +1,32 @@
+{% extends "base.html" %} {% block content %}
+<div class="bg-dark max-height">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 mt-2 text-center h5">
+                <h1 class="display-3 text-light heading-custom">SIGNUP</h1>
+                <form action="{{url_for('signup')}}" method="POST">
+                    <div class="form-group">
+                        <label for="exampleInputPassword1" class="text-light">Name</label>
+                        <input type="text" class="form-control form-control-lg" id="exampleInputText1" placeholder="Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1" class="text-light">Email address</label>
+                        <input type="email" class="form-control form-control-lg" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1" class="text-light">Password</label>
+                        <input type="password" class="form-control form-control-lg" id="exampleInputPassword1" placeholder="Password">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1" class="text-light">Confirm Password</label>
+                        <input type="password" class="form-control form-control-lg" id="exampleInputPassword1" placeholder="Password">
+                    </div>
+                    <small class="form-text text-muted my-2">Already a member? <a href="{{url_for('login')}}">Click Here to Login.</a></small>
+                    <button type="submit" class="btn btn-dark mt-1">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -29,3 +29,6 @@
 
 + Match Aggregate Function in MongoDB
     https://docs.mongodb.com/manual/reference/operator/aggregation/match/
+
++ Adding Favicon to Web Page
+    https://www.w3.org/2005/10/howto-favicon

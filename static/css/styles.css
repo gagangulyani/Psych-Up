@@ -4,6 +4,10 @@ body {
     font-family: 'Russo One', sans-serif;
 }
 
+.max-height {
+    height: 100vh;
+}
+
 .bg-dark {
     background-color: black!important;
 }
@@ -17,8 +21,6 @@ body {
     height: 100vh;
 }
 
-.banner {}
-
 #logo {
     margin-top: 2em;
     background-color: rgba(255, 255, 255, 0.9);
@@ -29,6 +31,15 @@ body {
 
 #logo:hover {
     box-shadow: 1px 2px 8px 1px white, 1px 2px 8px 1px grey;
+}
+
+.heading-custom {
+    text-shadow: 1px 2px 4px grey, 1px 2px 8px grey;
+    transition: all 0.7s ease-in-out;
+}
+
+.heading-custom:hover {
+    text-shadow: 1px 2px 10px white, 1px 2px 20px grey;
 }
 
 .nav-log-sign:hover {
