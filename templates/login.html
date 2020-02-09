@@ -1,17 +1,18 @@
-{% extends "base.html" %} {% block content %}
+{% extends "base.html" %} {% block content %} {% macro display_errors(error_list) %} {% for error in error_list %}
+<small class="form-text text-danger">{{error}}</small> {% endfor %} {% endmacro %}
+
 <div class="bg-dark max-height">
     <div class="container">
         <div class="row">
             <div class="col-12 mt-2 text-center h5">
-                <h1 class="display-3 text-light heading-custom">LOGIN</h1>
+                <h1 class="display-3 text-light heading-custom">Login</h1>
                 <form action="{{url_for('signup')}}" method="POST">
+                    {{ form.csrf_token }}
                     <div class="form-group">
-                        <label for="exampleInputEmail1" class="text-light">Email or Username</label>
-                        <input type="email" class="form-control form-control-lg" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Email or Username">
+                        {{form.email.label(class="text-light")}} {{form.email(class="form-control form-control-lg",placeholder="Enter email")}}{{display_errors(form.email.errors)}}
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputPassword1" class="text-light">Password</label>
-                        <input type="password" class="form-control form-control-lg" id="exampleInputPassword1" placeholder="Password">
+                        {{form.password.label(class="text-light")}} {{form.password(class="form-control form-control-lg",placeholder="Password")}}{{display_errors(form.password.errors)}}
                     </div>
                     <small class="form-text text-muted my-2">Never been a member? <a href="{{url_for('signup')}}">Click Here to Signup.</a></small>
                     <button type="submit" class="btn btn-dark mt-1">Submit</button>

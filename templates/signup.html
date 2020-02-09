@@ -1,26 +1,25 @@
-{% extends "base.html" %} {% block content %}
+{% extends "base.html" %} {% block content %} {% macro display_errors(error_list) %} {% for error in error_list %}
+<small class="form-text text-danger">{{error}}</small> {% endfor %} {% endmacro %}
+
 <div class="bg-dark max-height">
     <div class="container">
         <div class="row">
             <div class="col-12 mt-2 text-center h5">
                 <h1 class="display-3 text-light heading-custom">SIGNUP</h1>
                 <form action="{{url_for('signup')}}" method="POST">
+                    {{ form.csrf_token }}
                     <div class="form-group">
-                        <label for="exampleInputPassword1" class="text-light">Name</label>
-                        <input type="text" class="form-control form-control-lg" id="exampleInputText1" placeholder="Name">
+                        {{form.name.label(class="text-light")}} {{form.name(class="form-control form-control-lg",placeholder="Name")}} {{display_errors(form.name.errors)}}
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputEmail1" class="text-light">Email address</label>
-                        <input type="email" class="form-control form-control-lg" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                        {{form.email.label(class="text-light")}} {{form.email(class="form-control form-control-lg",placeholder="Enter email")}}{{display_errors(form.email.errors)}}
                         <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputPassword1" class="text-light">Password</label>
-                        <input type="password" class="form-control form-control-lg" id="exampleInputPassword1" placeholder="Password">
+                        {{form.password.label(class="text-light")}} {{form.password(class="form-control form-control-lg",placeholder="Password")}}{{display_errors(form.password.errors)}}
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputPassword1" class="text-light">Confirm Password</label>
-                        <input type="password" class="form-control form-control-lg" id="exampleInputPassword1" placeholder="Password">
+                        {{form.cpassword.label(class="text-light")}} {{form.cpassword(class="form-control form-control-lg",placeholder="Password")}} {{display_errors(form.cpassword.errors)}}
                     </div>
                     <small class="form-text text-muted my-2">Already a member? <a href="{{url_for('login')}}">Click Here to Login.</a></small>
                     <button type="submit" class="btn btn-dark mt-1">Submit</button>

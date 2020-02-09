@@ -7,4 +7,5 @@ description
 hooks/
 info/
 models/__pycache__/
-__pycache__/
+__pycache__/.vscode/
+.vscode/
