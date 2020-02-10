@@ -12,24 +12,32 @@ body {
     background-color: black!important;
 }
 
+.bg-dark-transparent {
+    background-color: rgba(0, 0, 0, 0.5)!important;
+}
+
+.bg-transparent {
+    background-color: rgba(0, 0, 0, 0);
+}
+
 .auth-form .form-group {
     padding: 1em;
     margin: auto;
     border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-#logo:hover,
-.auth-form .form-group:hover {
-    box-shadow: 1px 2px 8px 1px white, 1px 2px 8px 1px grey;
+@media screen and (max-width: 768px) and (max-width: 512px) {
+    #logo {
+        min-width: 80%;
+        margin-top: 50%!important;
+    }
 }
 
-.landing {
-    background-image: url('../images/alexander-andrews-vGCErDhrc3E-unsplash.jpg');
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    height: 100vh;
+@media screen and (min-height: 1024px) {
+    #logo {
+        min-width: 80%;
+        margin-top: 30%!important;
+    }
 }
 
 #logo {
@@ -38,6 +46,32 @@ body {
     padding: 1em 1.8em 1em 1.8em;
     border-radius: 10em;
     width: 60%;
+}
+
+#logo:hover,
+.auth-form .form-group:hover {
+    box-shadow: 1px 2px 8px 1px white, 1px 2px 8px 1px grey;
+}
+
+.auth-form .form-group input {
+    backgroundclass="h-50-color: rgba(255, 255, 255, 0.93);
+ transition: all 0.2s ease-in-out;
+}
+
+.auth-form .form-group input:focus,
+.auth-form .form-group input:active,
+.auth-form .form-group input:focus-within {
+    box-shadow: 1px 2px 5px 2px white, 1px 2px 5px 4px grey!important;
+    border: none;
+    background-color: rgba(255, 255, 255, 0.96);
+}
+
+.landing {
+    background-image: url('../images/alexander-andrews-vGCErDhrc3E-unsplash.jpg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 .heading-custom {

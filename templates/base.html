@@ -8,24 +8,30 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
     <!-- Bootstrap 4 -->
+
+    <!-- jquery 3.4.1 is custom as latest one has some issues -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/js/all.min.js">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/js/all.min.js"></script>
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Russo+One&display=swap" rel="stylesheet">
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="{{url_for('static', filename = 'images/logo.png')}}">
+
     <!-- Custom Styles -->
     <link rel="stylesheet" href="{{url_for('static', filename = 'css/styles.css')}}">
 
+    <!-- Custom JS -->
+    <script src="{{url_for('static', filename = 'js/script.js')}}"></script>
+
     <!-- Title -->
-    <title class="font-weight-bold">{% block title %}{% endblock %}</title>
+    <title>{% block title %}Psych-Up{% endblock %}</title>
 
     <!-- Style Block -->
     {% block styles %} {% endblock %}
@@ -34,7 +40,7 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
         <a class="navbar-brand" href="/">
-            <img src="{{url_for('static', filename = 'images/logo.png')}}" width="30" height="30" class="bg-light d-inline-block align-top rounded-circle mr-1 p-sm-1" alt="">Pysch-Up</a>
+            <img src="{{url_for('static', filename = 'images/logo.png')}}" width="30" height="30" class="bg-light d-inline-block align-top rounded-circle mr-1 p-lg-1" alt="">Psych-Up</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -57,7 +63,7 @@
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link p-1 dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    About Pysch-Up
+                    About Psych-Up
               </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="/about/why">Why it is Needed</a>
@@ -69,23 +75,23 @@
                         </li>
 
                         {% if request.path == "/login" %}
-                        <li class="nav-item bg-light d-flex d-sm-none">
+                        <li class="nav-item bg-light d-flex d-lg-none">
                             <a class="nav-link p-1 text-dark nav-log-sign" href="/login">Login</a> {% else %}
-                            <li class="nav-item d-flex d-sm-none">
+                            <li class="nav-item d-flex d-lg-none">
                                 <a class="nav-link p-1 text-white nav-log-sign" href="/login">Login</a> {% endif %}
 
                             </li>
                             {% if request.path == "/signup" %}
 
-                            <li class="ml-sm-2 nav-item bg-light d-flex d-sm-none">
+                            <li class="ml-lg-2 nav-item bg-light d-flex d-lg-none">
                                 <a class="nav-link p-1 text-dark nav-log-sign" href="/signup">Signup</a> {% else %}
-                                <li class="ml-sm-2 nav-item d-flex d-sm-none">
+                                <li class="ml-lg-2 nav-item d-flex d-lg-none">
                                     <a class="nav-link p-1 text-white nav-log-sign" href="/signup">Signup</a> {%endif%}
 
                                 </li>
 
             </ul>
-            <ul class="navbar-nav d-sm-flex d-none">
+            <ul class="navbar-nav d-lg-flex d-none">
                 {% if request.path == "/login" %}
                 <li class="nav-item bg-light">
                     <a class="nav-link p-1 text-dark border border-light nav-log-sign" href="/login">Login</a> {% else %}
@@ -95,17 +101,24 @@
                     </li>
                     {% if request.path == "/signup" %}
 
-                    <li class="ml-sm-2 nav-item bg-light">
+                    <li class="ml-lg-2 nav-item bg-light">
                         <a class="nav-link p-1 text-dark border border-light nav-log-sign" href="/signup">Signup</a> {% else %}
-                        <li class="ml-sm-2 nav-item">
+                        <li class="ml-lg-2 nav-item">
                             <a class="nav-link p-1 text-white border border-light nav-log-sign" href="/signup">Signup</a> {%endif%}
 
                         </li>
             </ul>
         </div>
+
     </nav>
     <!-- Content Block -->
-    {% block content %} {% endblock %}
+    <div class="bg-transparent max-height landing">
+        {% with messages = get_flashed_messages() %} {% if messages %} {% for message in messages %}
+        <div class="alert alert-dark alert-dilgissible mx-auto w-75" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button> {{message}}
+        </div>
+        {% endfor %} {% endif %} {% endwith %} {% block content %} {% endblock %}
+    </div>
 </body>
 
 </html>

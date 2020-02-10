@@ -1,31 +1,30 @@
 {% extends "base.html" %} {% block content %} {% macro display_errors(error_list) %} {% for error in error_list %}
 <small class="form-text text-danger">{{error}}</small> {% endfor %} {% endmacro %}
 
-<div class="bg-dark max-height">
-    <div class="container">
-        <div class="row">
-            <div class="col-12 mt-2 text-center h5">
-                <h1 class="display-3 text-light heading-custom">SIGNUP</h1>
-                <form action="{{url_for('signup')}}" class="auth-form" method="POST">
-                    {{ form.csrf_token }}
-                    <div class="form-group">
-                        {{form.name.label(class="text-light")}} {{form.name(class="form-control form-control-lg",placeholder="Name")}} {{display_errors(form.name.errors)}}
-                    </div>
-                    <div class="form-group">
-                        {{form.email.label(class="text-light")}} {{form.email(class="form-control form-control-lg",placeholder="Enter email")}}{{display_errors(form.email.errors)}}
-                        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-                    </div>
-                    <div class="form-group">
-                        {{form.password.label(class="text-light")}} {{form.password(class="form-control form-control-lg",placeholder="Password")}}{{display_errors(form.password.errors)}}
-                    </div>
-                    <div class="form-group">
-                        {{form.cpassword.label(class="text-light")}} {{form.cpassword(class="form-control form-control-lg",placeholder="Password")}} {{display_errors(form.cpassword.errors)}}
-                    </div>
-                    <small class="form-text text-muted my-2">Already a member? <a href="{{url_for('login')}}">Click Here to Login.</a></small>
-                    <button type="submit" class="btn btn-dark mt-1">Submit</button>
-                </form>
-            </div>
+<div class="container">
+    <div class="row">
+        <div class="col-10 mt-2 mx-auto text-center h5 bg-dark-transparent">
+            <h1 class="display-3 text-light heading-custom">SIGNUP</h1>
+            <form action="{{url_for('signup')}}" class="auth-form" method="POST">
+                {{ form.csrf_token }}
+                <div class="form-group">
+                    {{form.name.label(class="text-light")}} {{form.name(class="form-control form-control-lg",placeholder="Name")}} {{display_errors(form.name.errors)}}
+                </div>
+                <div class="form-group">
+                    {{form.email.label(class="text-light")}} {{form.email(class="form-control form-control-lg",placeholder="Enter email")}}{{display_errors(form.email.errors)}}
+                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                </div>
+                <div class="form-group">
+                    {{form.password.label(class="text-light")}} {{form.password(class="form-control form-control-lg",placeholder="Password")}}{{display_errors(form.password.errors)}}
+                </div>
+                <div class="form-group">
+                    {{form.cpassword.label(class="text-light")}} {{form.cpassword(class="form-control form-control-lg",placeholder="Password")}} {{display_errors(form.cpassword.errors)}}
+                </div>
+                <small class="form-text text-muted my-2">Already a member? <a href="{{url_for('login')}}">Click Here to Login.</a></small>
+                <button type="submit" class="btn btn-dark mt-1">Submit</button>
+            </form>
         </div>
     </div>
 </div>
+
 {% endblock %}

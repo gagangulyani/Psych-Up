@@ -5,6 +5,8 @@ except ImportError:
 
 from pprint import pprint
 from bson import ObjectId
+from werkzeug.security import (generate_password_hash,
+                               check_password_hash)
 
 
 class User:
@@ -23,7 +25,8 @@ class User:
         _id=None,
         followers=[],
         following=[],
-        total_score=0
+        total_score=0,
+        active=True
     ):
         self.name = name
         self.username = username
@@ -35,12 +38,17 @@ class User:
         self.followers = followers
         self.following = following
         self.total_score = total_score
+        self.active = active
 
-    def to_dict(self):
+    def to_dict(self, signup=False):
         """
             Returns a Dictionary object consisting of Data Members of User Class
 
         """
+
+        if signup:
+            self.password = generate_password_hash(password=self.password,
+                                                   method="pbkdf2:sha512")
         result = {
             "name": self.name,
             "username": self.username,
@@ -66,10 +74,19 @@ class User:
     def display_user_info(self):
         pprint(self.to_dict())
 
-    def save_user(self):
-        _id = User.DB.insert_one(User.COLLECTION, self.to_dict())
+    def save_user(self, signup=False):
+        _id = User.DB.insert_one(User.COLLECTION, self.to_dict(signup=signup))
         self._id = _id
         return _id
+
+    @staticmethod
+    def login(username, password):
+        if usr := User.DB.find_one(
+            COLLECTION=User.COLLECTION,
+            query={"$or": [{"username": username},
+                           {"email": username}]}
+        ):
+            return check_password_hash(usr.get('password'), password)
 
     def get_user(self, username=True, _id=False):
         if username:
@@ -78,17 +95,18 @@ class User:
             return User.to_class(User.DB.find_one(User.COLLECTION, {'_id': self._id}))
 
     @staticmethod
-    def get_user_info(username=None, _id=None):
+    def get_user_info(username=None, _id=None, email=None):
         if username:
             return User.to_class(User.DB.find_one(User.COLLECTION, {'username': username}))
         elif _id:
             return User.to_class(User.DB.find_one(User.COLLECTION, {'_id': _id}))
+        return User.to_class(User.DB.find_one(User.COLLECTION, {'email': email}))
 
     def update_user_info(self):
-        User.DB.update_one(User.COLLECTION, 
-            {"_id": self._id},
-            {'$set': self.to_dict()}
-        )
+        User.DB.update_one(User.COLLECTION,
+                           {"_id": self._id},
+                           {'$set': self.to_dict()}
+                           )
 
     def delete_user(self):
         return User.DB.delete_one(User.COLLECTION, {'_id': self._id})
@@ -211,6 +229,24 @@ class User:
             }
         )
 
+    def is_active(self):
+        # Required by Flask Login
+        return self.active
+
+    @staticmethod
+    def is_authenticated():
+        # Required by Flask Login
+        return True
+
+    @staticmethod
+    def is_anonymous():
+        # Required by Flask Login
+        return False
+
+    def get_id(self):
+        # Required by Flask Login
+        return self._id
+
 
 if __name__ == "__main__":
     usr1 = User.get_user_info(_id=User.get_all_users()[0]['_id'])
@@ -218,7 +254,6 @@ if __name__ == "__main__":
     usr1.update_user_info()
     usr2 = User.get_user_info(_id=User.get_all_users()[1]['_id'])
     usr2.follow_user(usr1)
-    
+
     print(usr1.get_followers())
-    
     # print(usr1.get_user(username=usr1.username))
