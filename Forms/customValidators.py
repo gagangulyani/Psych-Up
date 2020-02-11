@@ -71,7 +71,7 @@ def isUser(form, field, login=False):
         usr = User.get_user_info(username=email)
         email = False
 
-    print(usr)
+    # print(usr)
 
     if login:
         if not usr:

@@ -1,12 +1,11 @@
 from flask_wtf import FlaskForm
-from wtforms import (StringField, SubmitField,
-                     PasswordField,)
-from models.users import User
+from wtforms import PasswordField, StringField, SubmitField
+from wtforms.validators import InputRequired, Length
+
+from Forms.customValidators import (StrongPassword, checkForJunk, isUser,
+                                    isUser2)
 from models.database import Database
-from wtforms.validators import (InputRequired,
-                                Length)
-from customValidators import (checkForJunk,
-                              StrongPassword, isUser, isUser2)
+from models.users import User
 
 
 class LoginForm(FlaskForm):
@@ -27,13 +26,17 @@ class LoginForm(FlaskForm):
         rv = FlaskForm.validate(self)
         if not rv:
             return False
+        
         if len(self.password.data) > 16:
             return None
         else:
             result = User.login(self.email.data, self.password.data)
-
+            print("FORM DATA:\nemail, password")
+            print(*[self.email.data, self.password.data])
+            print("\nForm Result :", result)
+            
         if result is None:
-            self.email.errors = ['Account Not Found!']
+            self.email.errors = ['Account Not Found!!']
             return False
 
         elif result is False:

@@ -54,8 +54,8 @@ body {
 }
 
 .auth-form .form-group input {
-    backgroundclass="h-50-color: rgba(255, 255, 255, 0.93);
- transition: all 0.2s ease-in-out;
+    background-color: rgba(255, 255, 255, 0.93);
+    transition: all 0.2s ease-in-out;
 }
 
 .auth-form .form-group input:focus,
@@ -87,4 +87,9 @@ body {
     transition: all 0.3s ease-in-out;
     background-color: white;
     color: black!important;
+}
+
+.player-banner {
+    height: 20vh;
+    color: white;
 }

@@ -4,8 +4,8 @@
 <div class="container">
     <div class="row">
         <div class="col-10 mt-2 mx-auto text-center h5 bg-dark-transparent">
-            <h1 class="display-3 text-light heading-custom">SIGNUP</h1>
-            <form action="{{url_for('signup')}}" class="auth-form" method="POST">
+            <h1 class="display-3 text-light heading-custom">ADMIN SIGNUP</h1>
+            <form action="/signup/admin" class="auth-form" method="POST">
                 {{ form.csrf_token }}
                 <div class="form-group">
                     {{form.name.label(class="text-light")}} {{form.name(class="form-control form-control-lg",placeholder="Name")}} {{display_errors(form.name.errors)}}

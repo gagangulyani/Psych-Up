@@ -74,40 +74,64 @@
                             </div>
                         </li>
 
-                        {% if request.path == "/login" %}
-                        <li class="nav-item bg-light d-flex d-lg-none">
-                            <a class="nav-link p-1 text-dark nav-log-sign" href="/login">Login</a> {% else %}
-                            <li class="nav-item d-flex d-lg-none">
-                                <a class="nav-link p-1 text-white nav-log-sign" href="/login">Login</a> {% endif %}
 
+                        {% if current_user.is_authenticated %} {% if request.path == "/player/{{current_user.username}}}"%}
+
+                        <li class="ml-lg-2 nav-item bg-light d-flex d-lg-none">
+                            <a class="nav-link p-1 text-dark nav-log-sign" href="/player/{{current_user.username}}}">Profile</a> {% else %}
+                            <li class="ml-lg-2 nav-item d-flex d-lg-none">
+                                <a class="nav-link p-1 text-white nav-log-sign" href="/player/{{current_user.username}}}">Profile</a> {%endif%}
                             </li>
-                            {% if request.path == "/signup" %}
-
-                            <li class="ml-lg-2 nav-item bg-light d-flex d-lg-none">
-                                <a class="nav-link p-1 text-dark nav-log-sign" href="/signup">Signup</a> {% else %}
-                                <li class="ml-lg-2 nav-item d-flex d-lg-none">
-                                    <a class="nav-link p-1 text-white nav-log-sign" href="/signup">Signup</a> {%endif%}
+                            <li class="ml-lg-2 nav-item d-flex d-lg-none">
+                                <a class="nav-link p-1 text-white nav-log-sign" href="/logout">Logout</a>
+                            </li>
+                            {% else %} {% if request.path == "/login" %}
+                            <li class="nav-item bg-light d-flex d-lg-none">
+                                <a class="nav-link p-1 text-dark nav-log-sign" href="/login">Login</a> {% else %}
+                                <li class="nav-item d-flex d-lg-none">
+                                    <a class="nav-link p-1 text-white nav-log-sign" href="/login">Login</a> {% endif %}
 
                                 </li>
+                                {% if request.path == "/signup" %}
+
+                                <li class="ml-lg-2 nav-item bg-light d-flex d-lg-none">
+                                    <a class="nav-link p-1 text-dark nav-log-sign" href="/signup">Signup</a> {% else %}
+                                    <li class="ml-lg-2 nav-item d-flex d-lg-none">
+                                        <a class="nav-link p-1 text-white nav-log-sign" href="/signup">Signup</a> {%endif%}
+
+                                    </li>
+                                    {% endif %}
 
             </ul>
             <ul class="navbar-nav d-lg-flex d-none">
-                {% if request.path == "/login" %}
+                {% if current_user.is_authenticated %} {% if request.path == "/player/{{current_user.username}}}"%}
                 <li class="nav-item bg-light">
-                    <a class="nav-link p-1 text-dark border border-light nav-log-sign" href="/login">Login</a> {% else %}
-                    <li class="nav-item">
-                        <a class="nav-link p-1 text-white border border-light nav-log-sign" href="/login">Login</a> {% endif %}
+                    <a class="nav-link p-1 text-dark border border-light nav-log-sign" href="/player/{{current_user.username}}}">Profile</a> {% else %}
+                    <li class="nav-item mr-2">
+                        <a class="nav-link p-1 text-white border border-light nav-log-sign" href="/player/{{current_user.username}}}">Profile</a> {% endif %}
 
                     </li>
-                    {% if request.path == "/signup" %}
 
-                    <li class="ml-lg-2 nav-item bg-light">
-                        <a class="nav-link p-1 text-dark border border-light nav-log-sign" href="/signup">Signup</a> {% else %}
-                        <li class="ml-lg-2 nav-item">
-                            <a class="nav-link p-1 text-white border border-light nav-log-sign" href="/signup">Signup</a> {%endif%}
+                    <li class="nav-item">
+                        <a class="nav-link p-1 text-white border border-light nav-log-sign" href="/logout">Logout</a>
+                    </li>
+                    {% else %} {% if request.path == "/login" %}
+                    <li class="nav-item bg-light">
+                        <a class="nav-link p-1 text-dark border border-light nav-log-sign" href="/login">Login</a> {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link p-1 text-white border border-light nav-log-sign" href="/login">Login</a> {% endif %}
 
                         </li>
+                        {% if request.path == "/signup" %}
+
+                        <li class="ml-lg-2 nav-item bg-light">
+                            <a class="nav-link p-1 text-dark border border-light nav-log-sign" href="/signup">Signup</a> {% else %}
+                            <li class="ml-lg-2 nav-item">
+                                <a class="nav-link p-1 text-white border border-light nav-log-sign" href="/signup">Signup</a> {%endif%}
+
+                            </li>
             </ul>
+            {% endif %}
         </div>
 
     </nav>

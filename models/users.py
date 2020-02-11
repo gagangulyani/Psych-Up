@@ -16,8 +16,9 @@ class User:
 
     def __init__(
         self,
-        username,
-        password,
+        username=None,
+        password=None,
+        email=None,
         age=0,
         name=None,
         number_of_wins=0,
@@ -26,15 +27,18 @@ class User:
         followers=[],
         following=[],
         total_score=0,
+        is_admin = False,
         active=True
     ):
         self.name = name
         self.username = username
         self.password = password
+        self.email = email
         self.age = age
         self.number_of_wins = number_of_wins
         self.history = history
         self._id = _id
+        self.is_admin = is_admin
         self.followers = followers
         self.following = following
         self.total_score = total_score
@@ -53,11 +57,13 @@ class User:
             "name": self.name,
             "username": self.username,
             "password": self.password,
+            "email": self.email,
             "age": self.age,
             "number_of_wins": self.number_of_wins,
             "history": self.history,
             "followers": self.followers,
             "following": self.following,
+            "is_admin": self.is_admin,
             "total_score": self.total_score
         }
 
@@ -77,6 +83,7 @@ class User:
     def save_user(self, signup=False):
         _id = User.DB.insert_one(User.COLLECTION, self.to_dict(signup=signup))
         self._id = _id
+        print(self._id)
         return _id
 
     @staticmethod
@@ -86,7 +93,9 @@ class User:
             query={"$or": [{"username": username},
                            {"email": username}]}
         ):
-            return check_password_hash(usr.get('password'), password)
+            if check_password_hash(usr.get('password'), password):
+                return usr
+            return False
 
     def get_user(self, username=True, _id=False):
         if username:

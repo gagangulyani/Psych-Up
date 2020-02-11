@@ -53,3 +53,11 @@
 
     https://uniwebsidad.com/libros/explore-flask/chapter-8/creating-macros
 
+* Reject insecure SameSite=None cookies
+
+    https://www.chromestatus.com/feature/5633521622188032
+
+* Python type() function
+
+    https://www.geeksforgeeks.org/python-type-function/
+

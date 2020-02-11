@@ -23,6 +23,7 @@ class Quiz:
                  answer=None,
                  attempts=dict(),
                  _id=None,
+                 userID=None
                  ):
 
         self.question = question
@@ -30,6 +31,7 @@ class Quiz:
         self.options = options
         self.answer = answer
         self.attempts = attempts
+        self.userID = userID
         self._id = _id
 
     def to_dict(self):
@@ -38,7 +40,8 @@ class Quiz:
             "category": self.category,
             "options": self.options,
             "answer": self.answer,
-            "attempts": self.attempts
+            "attempts": self.attempts,
+            "userID": self.userID
         }
 
         if self._id:
@@ -62,7 +65,7 @@ class Quiz:
         )
 
     @staticmethod
-    def get_questions(userID, limit=10, show_history=False):
+    def get_questions(userID, limit=10, show_history=False, is_admin=False):
 
         display_new_questions = show_history
 
@@ -86,7 +89,7 @@ class Quiz:
                                 '$exists': display_new_questions
                             }
                         }
-                    ]
+                    ],
                 }
             },
             {
@@ -98,6 +101,13 @@ class Quiz:
             # which created a filter to display quesions which user attempted
             del pipeline[1]['$match']['$or'][0]
             # print(pipeline)
+
+        if is_admin:
+            # if is_admin, questions posted
+            # by admin won't be displayed!
+            pipeline[1]['$match'].update({
+                "posted_by": {"$ne": userID}
+            })
 
         return [
             Quiz.to_class(i) for i in list(

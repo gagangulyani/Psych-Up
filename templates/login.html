@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col-12 mt-2 text-center h5">
                 <h1 class="display-3 text-light heading-custom">Login</h1>
-                <form action="{{url_for('signup')}}" class="auth-form" method="POST">
+                <form action="{{url_for('login')}}" class="auth-form" method="POST">
                     {{ form.csrf_token }}
                     <div class="form-group">
                         {{form.email.label(class="text-light")}} {{form.email(class="form-control form-control-lg",placeholder="Enter email")}}{{display_errors(form.email.errors)}}
