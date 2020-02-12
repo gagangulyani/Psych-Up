@@ -1,8 +1,4 @@
-try:
-    from models.database import Database
-except ImportError:
-    from database import Database
-
+from models.database import Database
 from pprint import pprint
 from bson import ObjectId
 from werkzeug.security import (generate_password_hash,

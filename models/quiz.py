@@ -1,13 +1,5 @@
-try:
-    from models.database import Database
-except ImportError:
-    from database import Database
-
-try:
-    from models.users import User
-except:
-    from users import User
-
+from models.database import Database
+from models.users import User
 from bson import ObjectId
 
 
