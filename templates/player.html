@@ -1,8 +1,29 @@
 {% extends "base.html" %} {% block title %} {{user.name}} on {{super()}} {% endblock %} {% block content %}
 <div class="container">
-    <div class="player-banner text-center">
-        <h1>Name: {{user.name}}</h1>
-        <h1>Username: {{user.username}}</h1>
+    <div class="player-banner text-center mx-auto p-3">
+        <div class="text-center mx-auto">
+            <div class="container pt-4">
+                <h1 class="border border-light p-4 mb-3 heading-custom" id="pname-profile">{{user.name}}</h1>
+                <h5>Username: {{user.username}}</h5>
+                <h2 class="mt-2"><i class="fas fa-gamepad d-sm-inline d-none"></i> Total Score: {{user.total_score}}</h2>
+                <h2 class="mt-2"><i class="fas fa-crown d-sm-inline d-none"></i> Total Wins: {{user.number_of_wins}}</h2>
+
+                <div class="text-center mt-2">
+                    <i class="fas fa-users h4 mb-0"></i>
+                    <div class="flex-sm-row mt-1">
+                        <h5 class="d-inline m-2"><a class="text-light" href="/followers/{{user.username}}">Followers : {{user.followers|length}}</a></h5>
+                        <br class="d-block d-sm-none">
+                        <h5 class="d-inline m-2"><a class="text-light" href="/following/{{user.username}}">Following : {{user.following|length}}</a></h5>
+                    </div>
+                </div>
+                <div class="flex-sm-row mt-2">
+                    {% if current_user.is_authenticated %} {% if current_user._id == user._id %}
+                    <a class="btn btn-outline-light" href="/settings"><i class="fas fa-cog"></i> Settings</a> {% endif %} {% endif %} {% if current_user._id != user._id %}
+                    <a class="btn btn-outline-light" href="/follow/{{user.username}}"><i class="fas fa-user-plus text-info"></i> Follow</a> {% if current_user.is_authenticated %} {% if current_user.is_following(user) %}
+                    <a class="btn btn-outline-light" href="/follow/{{user.username}}"><i class="fas fa-user-minus text-danger"></i> Unfollow</a> {% endif %} {% endif %} {% endif %}
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}

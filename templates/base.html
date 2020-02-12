@@ -75,12 +75,12 @@
                         </li>
 
 
-                        {% if current_user.is_authenticated %} {% if request.path == "/player/{{current_user.username}}}"%}
+                        {% if current_user.is_authenticated %} {% if request.path == "/player/{{current_user.username}}"%}
 
                         <li class="ml-lg-2 nav-item bg-light d-flex d-lg-none">
-                            <a class="nav-link p-1 text-dark nav-log-sign" href="/player/{{current_user.username}}}">Profile</a> {% else %}
+                            <a class="nav-link p-1 text-dark nav-log-sign" href="/player/{{current_user.username}}"><i class="fas fa-user-circle"></i> Profile</a> {% else %}
                             <li class="ml-lg-2 nav-item d-flex d-lg-none">
-                                <a class="nav-link p-1 text-white nav-log-sign" href="/player/{{current_user.username}}}">Profile</a> {%endif%}
+                                <a class="nav-link p-1 text-white nav-log-sign" href="/player/{{current_user.username}}"><i class="fas fa-user-circle"></i> Profile</a> {%endif%}
                             </li>
                             <li class="ml-lg-2 nav-item d-flex d-lg-none">
                                 <a class="nav-link p-1 text-white nav-log-sign" href="/logout">Logout</a>
@@ -104,11 +104,11 @@
 
             </ul>
             <ul class="navbar-nav d-lg-flex d-none">
-                {% if current_user.is_authenticated %} {% if request.path == "/player/{{current_user.username}}}"%}
+                {% if current_user.is_authenticated %} {% if request.path == "/player/{{current_user.username}}"%}
                 <li class="nav-item bg-light">
-                    <a class="nav-link p-1 text-dark border border-light nav-log-sign" href="/player/{{current_user.username}}}">Profile</a> {% else %}
+                    <a class="nav-link p-1 text-dark border border-light nav-log-sign" href="/player/{{current_user.username}}"><i class="fas fa-user-circle"></i> Profile</a> {% else %}
                     <li class="nav-item mr-2">
-                        <a class="nav-link p-1 text-white border border-light nav-log-sign" href="/player/{{current_user.username}}}">Profile</a> {% endif %}
+                        <a class="nav-link p-1 text-white border border-light nav-log-sign" href="/player/{{current_user.username}}"><i class="fas fa-user-circle"></i> Profile</a> {% endif %}
 
                     </li>
 

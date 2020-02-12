@@ -124,7 +124,7 @@ def signup():
 def player(username):
     if len(username) != 36:
         flash('User Does Not Exist!')
-        redirect('/', 302)
+        return redirect('/', 302)
 
     user = User.get_user_info(username=username)
     return render_template("player.html", user=user)

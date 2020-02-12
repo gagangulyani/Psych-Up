@@ -90,6 +90,25 @@ body {
 }
 
 .player-banner {
-    height: 20vh;
+    min-height: 20vh;
     color: white;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.fa-gamepad {
+    color: rgb(100, 200, 100);
+}
+
+.fa-crown {
+    color: rgb(255, 160, 60);
+}
+
+#pname-profile {
+    box-shadow: 1px 4px 4px white;
+    transition: all 0.3s ease-in-out!important;
+    font-size: 4em;
+}
+
+#pname-profile:hover {
+    box-shadow: 1px 1px 6px 4px white;
 }

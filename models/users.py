@@ -150,6 +150,12 @@ class User:
 
         return unfollowed
 
+    def is_following(self, user):
+
+        if user and self._id in user.followers:
+            return True
+        return False
+
     def get_followers(self, limit=0):
         # finds all users user is following
         pipeline = [
