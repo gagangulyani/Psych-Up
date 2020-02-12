@@ -23,7 +23,7 @@ class User:
         followers=[],
         following=[],
         total_score=0,
-        is_admin = False,
+        is_admin=False,
         active=True
     ):
         self.name = name
