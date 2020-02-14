@@ -184,7 +184,7 @@ class User:
         if limit:
             pipeline.append({'$limit': limit})
 
-        return list(User.DB.CURSOR[User.COLLECTION].aggregate(pipeline))
+        return list(User.DB.CURSOR[User.COLLECTION].aggregate(pipeline))[0]
 
     def get_following(self, limit=0):
         # finds all users self is following
@@ -215,7 +215,7 @@ class User:
         if limit:
             pipeline.append({'$limit': limit})
 
-        return list(User.DB.CURSOR[User.COLLECTION].aggregate(pipeline))
+        return list(User.DB.CURSOR[User.COLLECTION].aggregate(pipeline))[0]
 
     def play_quiz(self):
         pass

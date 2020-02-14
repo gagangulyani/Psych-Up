@@ -18,9 +18,9 @@
                 </div>
                 <div class="flex-sm-row mt-2">
                     {% if current_user.is_authenticated %} {% if current_user._id == user._id %}
-                    <a class="btn btn-outline-light" href="/settings"><i class="fas fa-cog"></i> Settings</a> {% endif %} {% endif %} {% if current_user._id != user._id %}
-                    <a class="btn btn-outline-light" href="/follow/{{user.username}}"><i class="fas fa-user-plus text-info"></i> Follow</a> {% if current_user.is_authenticated %} {% if current_user.is_following(user) %}
-                    <a class="btn btn-outline-light" href="/follow/{{user.username}}"><i class="fas fa-user-minus text-danger"></i> Unfollow</a> {% endif %} {% endif %} {% endif %}
+                    <a class="btn btn-outline-light" href="/settings"><i class="fas fa-cog"></i> Settings</a> {% endif %} {% endif %} {% if current_user._id != user._id %} {% if current_user.is_authenticated %} {% if current_user.is_following(user) %}
+                    <a class="btn btn-outline-light" href="/unfollow/{{user.username}}"><i class="fas fa-user-minus text-danger"></i> Unfollow</a>{% else %}<a class="btn btn-outline-light" href="/follow/{{user.username}}"><i class="fas fa-user-plus text-info"></i> Follow</a>{%
+                    endif %} {% endif %} {% endif %}
                 </div>
             </div>
         </div>

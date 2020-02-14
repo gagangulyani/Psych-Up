@@ -112,7 +112,7 @@ def signup():
             name=form.name.data.title(),
             is_admin=is_admin
         ).save_user(signup=True)
-        flash("Registration Completed! Please Login to Continue..")
+        flash("Registration Completed! Please Login..")
         return redirect(url_for('index'))
 
     if is_admin:
@@ -129,6 +129,61 @@ def player(username):
     user = User.get_user_info(username=username)
     return render_template("player.html", user=user)
 
+
+@app.route('/followers/<string:username>')
+def followers(username):
+    if not username and len(username) != 36:
+        flash("User Not Found!")
+        return redirect('/', 302)
+    user = User.get_user_info(username=username)
+    if user:
+        return render_template('followers.html', user=user, enumerate=enumerate)
+    flash("User Not Found!")
+    return redirect('/', 302)
+
+
+@app.route('/following/<string:username>')
+def following(username):
+    if not username and len(username) != 36:
+        flash("User Not Found!")
+        return redirect('/', 302)
+    user = User.get_user_info(username=username)
+    if user:
+        return render_template('following.html', user=user, enumerate=enumerate)
+    flash("User Not Found!")
+    return redirect('/', 302)
+
+
+@app.route('/follow/<string:username>')
+def follow(username):
+    if not username and len(username) != 36:
+        flash("User Not Found!")
+        return redirect('/', 302)
+
+    if current_user.is_authenticated:
+        user = User.get_user_info(username=username)
+        if user and current_user.follow_user(user):
+            return redirect(f'/player/{username}')
+        flash("User Not Found!")
+        return redirect('/', 302)
+    flash('Please Login before this action!')
+    return redirect('/', 302)
+
+
+@app.route('/unfollow/<string:username>')
+def unfollow(username):
+    if not username and len(username) != 36:
+        flash("User Not Found!")
+        return redirect('/', 302)
+
+    if current_user.is_authenticated:
+        user = User.get_user_info(username=username)
+        if user and current_user.unfollow_user(user):
+            return redirect(f'/player/{username}')
+        flash("User Not Found!")
+        return redirect('/', 302)
+    flash('Please Login before this action!')
+    return redirect('/', 302)
 
 @app.route('/logout')
 def logout():
