@@ -54,26 +54,56 @@ def index():
     template = 'index.html'
     if current_user.is_authenticated:
         if current_user.is_admin:
-            template = "Admin Panel"
+            return redirect('/admin/dashboard', 302)
+        else:
+            if request.path in ['/admin', '/admin/dashboard']:
+                return render_template("404.html")
+
     resp = make_response(render_template(template))
     # for Chrome
-    resp.set_cookie('SameSite', 'None', samesite="Lax", secure=True)
-    resp.set_cookie('cross-site-cookie', 'None', samesite='Lax', secure=True)
+    resp.set_cookie('SameSite',
+                    'None',
+                    samesite="Lax",
+                    secure=True)
+    resp.set_cookie('cross-site-cookie',
+                    'None',
+                    samesite='Lax',
+                    secure=True)
     return resp
-
-# @login_required
-
-
-@app.route('/play')
-def play_quiz():
-    return render_template("select_quiz.html")
 
 
 @app.route('/admin/dashboard')
 def admin_dashboard():
-    if current_user.is_authenticated and current_user.is_admin():
+    if current_user.is_authenticated and current_user.is_admin:
         return render_template('admin_dashboard.html')
     return render_template("404.html")
+
+
+@login_required
+@app.route('/admin/dashboard/Quiz/add')
+@app.route('/admin/dashboard/Quiz/edit')
+@app.route('/admin/dashboard/Quiz/delete')
+def quiz_dashboard():
+    if not current_user.is_authenticated:
+        flash('Login is Required for this action!')
+        return redirect('/', 302)
+    if not current_user.is_admin:
+        flash('You need to be an Admin for Performing this action!')
+        return redirect('/', 302)
+    template = "_question.html"
+    req_path = request.path.split('/')[-1]
+    if req_path == 'add':
+        return render_template('add' + template)
+    elif req_path == 'edit':
+        return render_template('edit' + template)
+    else:
+        return render_template('delete' + template)
+
+
+@login_required
+@app.route('/play')
+def play_quiz():
+    return render_template("select_quiz.html")
 
 
 @app.route('/login', methods=["GET", "POST"])
@@ -94,6 +124,8 @@ def login():
                 )
             )
             flash(f"Welcome {current_user.name.split()[0]}!")
+            if result.get('is_admin'):
+                return redirect('/admin/dashboard')
             return redirect(f'/player/{current_user.username}', 302)
 
     return render_template('login.html', form=form)

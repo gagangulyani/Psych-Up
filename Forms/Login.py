@@ -30,7 +30,7 @@ class LoginForm(FlaskForm):
         if len(self.password.data) > 16:
             return None
         else:
-            result = User.login(self.email.data, self.password.data)
+            result = User.login(self.email.data.lower(), self.password.data)
             print("FORM DATA:\nemail, password")
             print(*[self.email.data, self.password.data])
             print("\nForm Result :", result)

@@ -1,0 +1,66 @@
+{% extends "base.html" %} {% block content %}
+<style>
+    .dashboard-container {
+        background-color: #ffffffe6;
+        border-radius: 2em;
+    }
+    
+    #dashboard_title {
+        color: black;
+    }
+    
+    .dashboard_options ol li {
+        font-size: 1.5em;
+    }
+    
+    .dashboard_options ol a {
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+</style>
+<div class="p-3"></div>
+<div class="container dashboard-container p-4">
+    <h1 class="display-5 p-4 pb-0 text-center" id='dashboard_title'>DASHBOARD</h1>
+    <div class="row">
+        <div class="col-12 col-md-6 container text-center dashboard_options">
+            <hr>
+            <h2>Quiz</h2>
+            <div class="container">
+                <ol class="text-center">
+                    <a class="text-dark" href="/admin/dashboard/Quiz/add">
+                        <li>Add Question</li>
+                    </a>
+                    <a class="text-dark" href="/admin/dashboard//Quiz/edit">
+                        <li>Edit Question</li>
+                    </a>
+                    <a class="text-dark" href="/admin/dashboard/Quiz/delete">
+                        <li>Delete Question</li>
+                    </a>
+                    <a class="text-dark" href="/play">
+                        <li>Play Quiz</li>
+                    </a>
+                </ol>
+            </div>
+        </div>
+        <div class="col-12 col-md-6 container text-center dashboard_options">
+            <hr>
+            <h2>Players</h2>
+            <div class="container">
+                <ol class="text-center">
+                    <a class="text-dark" href="/admin/dashboard/Players/remove">
+                        <li>Find and Remove Player</li>
+                    </a>
+                </ol>
+            </div class="container">
+        </div>
+
+        <div class="col-12 text-center">
+            <hr>
+            <h2>Messages</h2>
+            {% if messages %} {% for message in messages %}
+            <p>{{message}}</p>
+            {% endfor %} {% endif %}
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}
