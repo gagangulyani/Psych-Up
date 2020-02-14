@@ -1,3 +1,4 @@
+from flask import Flask, render_template
 from flask import (
     flash, request, redirect,
     render_template, Flask, url_for,
@@ -66,6 +67,13 @@ def index():
 @app.route('/play')
 def play_quiz():
     return render_template("select_quiz.html")
+
+
+@app.route('/admin/dashboard')
+def admin_dashboard():
+    if current_user.is_authenticated and current_user.is_admin():
+        return render_template('admin_dashboard.html')
+    return render_template("404.html")
 
 
 @app.route('/login', methods=["GET", "POST"])
@@ -185,12 +193,18 @@ def unfollow(username):
     flash('Please Login before this action!')
     return redirect('/', 302)
 
+
 @app.route('/logout')
 def logout():
     fname = current_user.name.split()[0].capitalize()
     logout_user()
     flash(f'See You Next Time {fname}!')
     return redirect('/')
+
+
+@app.errorhandler(404)
+def not_found(e):
+    return render_template("404.html")
 
 
 if __name__ == "__main__":

@@ -61,3 +61,7 @@
 
     https://www.geeksforgeeks.org/python-type-function/
 
+* Python | 404 Error handling in Flask
+
+    https://www.geeksforgeeks.org/python-404-error-handling-in-flask/
+

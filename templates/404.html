@@ -1,0 +1,12 @@
+<html>
+
+<head>
+    <title>Page Not Found</title>
+    <meta http-equiv="refresh" content="3;url={{url_for('index')}}" />
+</head>
+{% extends "base.html" %} {% block content %}
+<div class="text-center text-light p-2 container">
+    <h1 class="display-3 pt-5">404: Not Found :(</h1>
+    <p class="text-light">Redirecting in 3,2,1..</p>
+</div>
+{% endblock %}
