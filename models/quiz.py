@@ -57,7 +57,11 @@ class Quiz:
         )
 
     @staticmethod
-    def get_questions(userID, limit=10, show_history=False, is_admin=False):
+    def get_questions(userID,
+                      limit=10,
+                      show_history=False,
+                      is_admin=False,
+                      sort=-1):
 
         display_new_questions = show_history
 
@@ -86,6 +90,11 @@ class Quiz:
             },
             {
                 "$limit": limit
+            },
+            {
+                "$sort": {
+                    "_id": sort
+                }
             }
         ]
         if show_history:
@@ -97,15 +106,23 @@ class Quiz:
         if is_admin:
             # if is_admin, questions posted
             # by admin won't be displayed!
-            pipeline[1]['$match'].update({
-                "posted_by": {"$ne": userID}
-            })
+            pipeline[1]['$match'].clear()
+            if not show_history:
+                pipeline[1]['$match'].update({
+                    "posted_by": {"$ne": userID}
+                })
+                pipeline[0]['$project'].update({'_id': '$_id'})
 
         return [
             Quiz.to_class(i) for i in list(
                 Quiz.DB.CURSOR[Quiz.COLLECTION].aggregate(pipeline)
             )
         ]
+
+    @staticmethod
+    def get_question(qid):
+        return Quiz.to_class(Quiz.DB.find_one(COLLECTION=Quiz.COLLECTION,
+                                              query={'_id': ObjectId(qid)}))
 
     @staticmethod
     def get_attempts(usr):

@@ -5,8 +5,8 @@ from models.database import Database
 import re
 
 
-def checkForJunk(form=None, field=None, usrtext=None):
-    punct = punctuation.replace('_', '')
+def checkForJunk(form=None, field=None, usrtext=None, ignorechar="_"):
+    punct = punctuation.replace(ignorechar, '')
     if not field:
         class a:
             def __init__(self, data):
@@ -14,13 +14,14 @@ def checkForJunk(form=None, field=None, usrtext=None):
 
         field = a(usrtext)
 
-    for i in field.data:
-        if i in punct:
-            if usrtext:
-                return True
-            else:
-                raise ValidationError(
-                    'Only Alphabets, Numbers and Underscores Allowed!')
+    if field.data:
+        for i in field.data:
+            if i in punct:
+                if usrtext:
+                    return True
+                else:
+                    raise ValidationError(
+                        'Only Alphabets, Numbers and Underscores Allowed!')
 
 
 def StrongPassword(form, field):
@@ -82,6 +83,7 @@ def isUser(form, field, login=False):
             if email:
                 raise ValidationError('Email Already Taken!')
             raise ValidationError('Username Already Taken!')
+
 
 def isUser2(form, field):
     isUser(form, field, login=True)

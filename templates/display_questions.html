@@ -1,0 +1,17 @@
+{% extends "base.html" %} {% block title %} Add Question : {{super()}}{% endblock %} {% block content %}
+<div class="container text-light text-center">
+    <h1 class="text-light heading-custom display-4">Questions</h1>
+    <div class="">
+        {% if questions %} {% for question in questions %}
+        <div class="border border-light bg-dark-transparent p-2 m-2">
+            <h4 class="text-light">{{question.question}}</h4>
+            {% if request.path == '/admin/dashboard/Quiz/edit'%}
+            <a class="btn btn-outline-light" href="{{request.path + '/' + question._id}}">EDIT</a> {% else %}
+            <a class="btn btn-outline-light" href="{{request.path + '/' + question._id}}">DELETE</a> {% endif %}
+        </div>
+        {% endfor %} {% else %}
+        <h5 class="text-white">Nothing to Show!</h5>
+        <a class="text-white" href="/admin/dashboard/add">Post a Question!</a> {%endif%}
+    </div>
+</div>
+{% endblock %}

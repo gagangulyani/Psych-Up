@@ -26,10 +26,15 @@ body {
     border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-@media screen and (max-width: 768px) and (max-width: 512px) {
+@media screen and (max-width: 768px) {
     #logo {
         min-width: 80%;
         margin-top: 50%!important;
+    }
+    .form-control-lg-dark,
+    .form-control-lg-dark:active,
+    .form-control-lg-dark:focus {
+        font-size: 2em!important;
     }
 }
 
@@ -111,4 +116,21 @@ body {
 
 #pname-profile:hover {
     box-shadow: 1px 1px 6px 4px white;
+}
+
+.form-control-lg-dark,
+.form-control-lg-dark:active,
+.form-control-lg-dark:focus {
+    background-color: black;
+    color: white;
+    font-size: 3em;
+    background-color: black;
+    color: white;
+}
+
+.form-control-lg-dark:active,
+.form-control-lg-dark:focus {
+    border: 1px solid white;
+    box-shadow: 1px 2px 4px 4px rgba(255, 255, 255, 0.5);
+    ;
 }

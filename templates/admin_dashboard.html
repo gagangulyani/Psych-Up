@@ -1,4 +1,4 @@
-{% extends "base.html" %} {% block content %}
+{% extends "base.html" %} {% block title %}Admin Dashboard : {{super()}}{% endblock %}{% block content %}
 <style>
     .dashboard-container {
         background-color: #ffffffe6;
@@ -29,7 +29,7 @@
                     <a class="text-dark" href="/admin/dashboard/Quiz/add">
                         <li>Add Question</li>
                     </a>
-                    <a class="text-dark" href="/admin/dashboard//Quiz/edit">
+                    <a class="text-dark" href="/admin/dashboard/Quiz/edit">
                         <li>Edit Question</li>
                     </a>
                     <a class="text-dark" href="/admin/dashboard/Quiz/delete">
@@ -46,8 +46,14 @@
             <h2>Players</h2>
             <div class="container">
                 <ol class="text-center">
+                    <a class="text-dark" href="/admin/dashboard/Players/view">
+                        <li>View All Players</li>
+                    </a>
+                    <a class="text-dark" href="/admin/dashboard/Players/leaderboard">
+                        <li>Leaderboard</li>
+                    </a>
                     <a class="text-dark" href="/admin/dashboard/Players/remove">
-                        <li>Find and Remove Player</li>
+                        <li>Remove Player</li>
                     </a>
                 </ol>
             </div class="container">
