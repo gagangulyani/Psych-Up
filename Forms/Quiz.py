@@ -47,5 +47,5 @@ class AddQuestion(FlaskForm):
                            )
 
 
-class EditQuestion(AddQuestion, FlaskForm):
+class EditQuestion(AddQuestion):
     pass
