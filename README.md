@@ -1,18 +1,20 @@
 # Psych Up
 
-> *This site provides Users a set of Questions (Quiz) by selecting a Particular Category*
+![Psch-Up Home Page](./images/Psych-Up.png)
+
+> ***Play Infinite Quizzes and Sharpen Your Knowledge!***
 
 ## Features:
-
-* Wide Range of Categories
-* Customizable Background for User Profile
-* Leaderboard for creating a competitive environment
-* Follow Other Users for keeping track of their Progress
+* **Infinite Quiz**: It Never Ends until You are Wrong!
+* **Admin Dashboard**: For Adding, Editing and Removing Questions and Removing Players who cheat
+* **Leaderboard**: For Creating a *Competitive* Environment among Players
+* **Follow Other Players**: For Keeping Track of Recent Quizzes of Players
 
 ## Requirements:
 
 * Python 3.8.x
-* Flask, Flask-WTF, Flask-Login, PyMongo
+* Flask, Flask-WTF, Flask-Login, Flask-Paranoid, PyMongo
+* MongoDB
 
 ### References 
 
