@@ -14,7 +14,7 @@
 
 * Python 3.8.x
 * Flask, Flask-WTF, Flask-Login, Flask-Paranoid, PyMongo
-* MongoDB
+* MongoDB v4.2.x
 
 ### References 
 
