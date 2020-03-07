@@ -7,6 +7,7 @@
 <div class="settings bg-dark-transparent text-light">
     <div class="container">
         <h1>Settings</h1>
+        <p class="text-muted">Press Enter to Save Changes</p> 
         <form action="/settings" class="auth-form" method="POST">
             {{ form.csrf_token }}
             <div class="form-group">
@@ -22,8 +23,8 @@
                 {{form.password.label(class="text-light")}} {{form.password(class="form-control form-control-lg")}}{{display_errors(form.password.errors)}}
             </div>
             <div class="text-right mt-2">
-                <button type="submit" class="btn btn-dark mt-1">Update</button>
                 <a class="btn btn-danger mt-1" href="/settings/delete">Delete Account</a>
+                <button type="submit" class="btn btn-dark mt-1">Update</button>
             </div>
             
         </form>
