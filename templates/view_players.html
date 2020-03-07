@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <div class="view-players text-center text-light bg-dark-transparent">
+        <h1 class="h1">View Players</h1>
+        {% if players %}
+
+        <table class="leaderboard-table w-100 border border-light">
+            <thead>
+                <tr class="mb-2 border border-white">
+                    <th class="border border-white p-2">#</th>
+                    <th class="border border-white p-2">Player Name</th>
+                    <th class="border border-white p-2">Total Wins</th>
+                    <th class="border border-white p-2">Total Score</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for iteration, player in enumerate(players) %}
+                <tr>
+                    {% if request.path == "/admin/dashboard/Players/remove" and player._id != current_user._id%}
+                    <td class="border border-white p-2">{{iteration + 1}} <br><a class='b-block btn btn-danger' href="/admin/dashboard/Players/remove/{{player.username}}">Delete</a></td>
+                    {% else %}
+                    <td class="border border-white p-2">{{iteration + 1}}</td>
+                    {% endif %}
+                    <td class="border border-white p-2"><a href="/player/{{player.username}}">{{player.name}} <br> <span class="text-muted small">{{player.username}}</span></a></td>
+                    <td class="border border-white p-2">{{player.total_wins}}</td>
+                    <td class="border border-white p-2">{{player.total_score}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <h4>Database Empty! No Players can be displayed..</h4>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

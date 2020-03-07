@@ -1,12 +1,15 @@
-{% extends "base.html" %} {% block content %}
+{% extends "base.html" %}
+{%block title%}{{user.name.split()[0]}}'s Following{%endblock%}
+{% block content %}
 <div class="container">
     <div class="player-banner text-center text-light">
         <h1><a class="text-light h1" href="/player/{{user.username}}">{{user.name.split()[0]}}</a>'s Following</h1>
-        <h5 class="text-light h1">Total Following : {{user.get_following().following | length}}</h5>
+        <h5 class="text-light">Total Following : {{user.get_following().following | length}}</h5>
         {% if user.get_following() | length %}
         <div class="justify-content-around">
             {% for i, follower in enumerate(user.get_following().following) %}
-            <div class="text-light h4">{{i + 1}}. <a class="text-light" href="/player/{{follower.get('username')}}">{{follower.get('name')}}</a></div>
+            <div class="text-light h4">{{i + 1}}. <a class="text-light"
+                    href="/player/{{follower.get('username')}}">{{follower.get('name')}}</a></div>
             {% endfor %}
         </div>
         {% endif %}

@@ -11,9 +11,14 @@
 
     <!-- jquery 3.4.1 is custom as latest one has some issues -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
 
     <!-- Font Awesome -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/js/all.min.js"></script>
@@ -40,9 +45,11 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
         <a class="navbar-brand" href="/">
-            <img src="{{url_for('static', filename = 'images/logo.png')}}" width="30" height="30" class="bg-light d-inline-block align-top rounded-circle mr-1 p-lg-1" alt="">Psych-Up</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
+            <img src="{{url_for('static', filename = 'images/logo.png')}}" width="30" height="30"
+                class="bg-light d-inline-block align-top rounded-circle mr-1 p-lg-1" alt="">Psych-Up</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -50,86 +57,97 @@
                 {% if request.path == "/home" or request.path == "/" %}
                 <li class="nav-item active">
                     {% else %}
-                    <li class="nav-item ">
-                        {% endif %}
-                        <a class="nav-link p-1" href="/home">Home <span class="sr-only">(current)</span></a>
-                    </li>
-                    {% if request.path == "/play" %}
-                    <li class="nav-item active">
-                        {% else %}
-                        <li class="nav-item">
-                            {% endif %}
-                            <a class="nav-link p-1" href="/play">Play</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link p-1 dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    About Psych-Up
-              </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="/about/why">Why it is Needed</a>
-                                <a class="dropdown-item" href="/about/how">How it is made</a>
-                                <a class="dropdown-item" href="/about/who">Who Made it</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="/contact">Get in touch with Us</a>
-                            </div>
-                        </li>
+                <li class="nav-item ">
+                    {% endif %}
+                    <a class="nav-link p-1" href="/home">Home <span class="sr-only">(current)</span></a>
+                </li>
+                {% if request.path == "/play" %}
+                <li class="nav-item active">
+                    {% else %}
+                <li class="nav-item">
+                    {% endif %}
+                    <a class="nav-link p-1" href="/play">Play</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link p-1 dropdown-toggle" href="" id="navbarDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        About Psych-Up
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/about/why">Why it is Needed</a>
+                        <a class="dropdown-item" href="/about/how">How it is made</a>
+                        <a class="dropdown-item" href="/about/who">Who Made it</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/contact">Get in touch with Us</a>
+                    </div>
+                </li>
 
 
-                        {% if current_user.is_authenticated %} {% if request.path == "/player/{{current_user.username}}"%}
+                {% if current_user.is_authenticated %} {% if request.path == "/player/{{current_user.username}}"%}
 
-                        <li class="ml-lg-2 nav-item bg-light d-flex d-lg-none">
-                            <a class="nav-link p-1 text-dark nav-log-sign" href="/player/{{current_user.username}}"><i class="fas fa-user-circle"></i> Profile</a> {% else %}
-                            <li class="ml-lg-2 nav-item d-flex d-lg-none">
-                                <a class="nav-link p-1 text-white nav-log-sign" href="/player/{{current_user.username}}"><i class="fas fa-user-circle"></i> Profile</a> {%endif%}
-                            </li>
-                            <li class="ml-lg-2 nav-item d-flex d-lg-none">
-                                <a class="nav-link p-1 text-white nav-log-sign" href="/logout">Logout</a>
-                            </li>
-                            {% else %} {% if request.path == "/login" %}
-                            <li class="nav-item bg-light d-flex d-lg-none">
-                                <a class="nav-link p-1 text-dark nav-log-sign" href="/login">Login</a> {% else %}
-                                <li class="nav-item d-flex d-lg-none">
-                                    <a class="nav-link p-1 text-white nav-log-sign" href="/login">Login</a> {% endif %}
+                <li class="ml-lg-2 nav-item bg-light d-flex d-lg-none">
+                    <a class="nav-link p-1 text-dark nav-log-sign" href="/player/{{current_user.username}}"><i
+                            class="fas fa-user-circle"></i> Profile</a> {% else %}
+                <li class="ml-lg-2 nav-item d-flex d-lg-none">
+                    <a class="nav-link p-1 text-white nav-log-sign" href="/player/{{current_user.username}}"><i
+                            class="fas fa-user-circle"></i> Profile</a> {%endif%}
+                </li>
+                <li class="ml-lg-2 nav-item d-flex d-lg-none">
+                    <a class="nav-link p-1 text-white nav-log-sign" href="/logout">Logout</a>
+                </li>
+                {% else %} {% if request.path == "/login" %}
+                <li class="nav-item bg-light d-flex d-lg-none">
+                    <a class="nav-link p-1 text-dark nav-log-sign" href="/login">Login</a> {% else %}
+                <li class="nav-item d-flex d-lg-none">
+                    <a class="nav-link p-1 text-white nav-log-sign" href="/login">Login</a> {% endif %}
 
-                                </li>
-                                {% if request.path == "/signup" %}
+                </li>
+                {% if request.path == "/signup" %}
 
-                                <li class="ml-lg-2 nav-item bg-light d-flex d-lg-none">
-                                    <a class="nav-link p-1 text-dark nav-log-sign" href="/signup">Signup</a> {% else %}
-                                    <li class="ml-lg-2 nav-item d-flex d-lg-none">
-                                        <a class="nav-link p-1 text-white nav-log-sign" href="/signup">Signup</a> {%endif%}
+                <li class="ml-lg-2 nav-item bg-light d-flex d-lg-none">
+                    <a class="nav-link p-1 text-dark nav-log-sign" href="/signup">Signup</a> {% else %}
+                <li class="ml-lg-2 nav-item d-flex d-lg-none">
+                    <a class="nav-link p-1 text-white nav-log-sign" href="/signup">Signup</a> {%endif%}
 
-                                    </li>
-                                    {% endif %}
+                </li>
+                {% endif %}
 
             </ul>
             <ul class="navbar-nav d-lg-flex d-none">
                 {% if current_user.is_authenticated %} {% if request.path == "/player/{{current_user.username}}"%}
                 <li class="nav-item bg-light">
-                    <a class="nav-link p-1 text-dark border border-light nav-log-sign" href="/player/{{current_user.username}}"><i class="fas fa-user-circle"></i> Profile</a> {% else %}
-                    <li class="nav-item mr-2">
-                        <a class="nav-link p-1 text-white border border-light nav-log-sign" href="/player/{{current_user.username}}"><i class="fas fa-user-circle"></i> Profile</a> {% endif %}
+                    <a class="nav-link p-1 text-dark border border-light nav-log-sign"
+                        href="/player/{{current_user.username}}"><i class="fas fa-user-circle"></i> Profile</a>
+                    {% else %}
+                <li class="nav-item mr-2">
+                    <a class="nav-link p-1 text-white border border-light nav-log-sign"
+                        href="/player/{{current_user.username}}"><i class="fas fa-user-circle"></i> Profile</a>
+                    {% endif %}
 
-                    </li>
+                </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link p-1 text-white border border-light nav-log-sign" href="/logout">Logout</a>
-                    </li>
-                    {% else %} {% if request.path == "/login" %}
-                    <li class="nav-item bg-light">
-                        <a class="nav-link p-1 text-dark border border-light nav-log-sign" href="/login">Login</a> {% else %}
-                        <li class="nav-item">
-                            <a class="nav-link p-1 text-white border border-light nav-log-sign" href="/login">Login</a> {% endif %}
+                <li class="nav-item">
+                    <a class="nav-link p-1 text-white border border-light nav-log-sign" href="/logout">Logout</a>
+                </li>
+                {% else %} {% if request.path == "/login" %}
+                <li class="nav-item bg-light">
+                    <a class="nav-link p-1 text-dark border border-light nav-log-sign" href="/login">Login</a>
+                    {% else %}
+                <li class="nav-item">
+                    <a class="nav-link p-1 text-white border border-light nav-log-sign" href="/login">Login</a>
+                    {% endif %}
 
-                        </li>
-                        {% if request.path == "/signup" %}
+                </li>
+                {% if request.path == "/signup" %}
 
-                        <li class="ml-lg-2 nav-item bg-light">
-                            <a class="nav-link p-1 text-dark border border-light nav-log-sign" href="/signup">Signup</a> {% else %}
-                            <li class="ml-lg-2 nav-item">
-                                <a class="nav-link p-1 text-white border border-light nav-log-sign" href="/signup">Signup</a> {%endif%}
+                <li class="ml-lg-2 nav-item bg-light">
+                    <a class="nav-link p-1 text-dark border border-light nav-log-sign" href="/signup">Signup</a>
+                    {% else %}
+                <li class="ml-lg-2 nav-item">
+                    <a class="nav-link p-1 text-white border border-light nav-log-sign" href="/signup">Signup</a>
+                    {%endif%}
 
-                            </li>
+                </li>
             </ul>
             {% endif %}
         </div>
@@ -139,9 +157,44 @@
     <div class="bg-transparent max-height landing">
         {% with messages = get_flashed_messages() %} {% if messages %} {% for message in messages %}
         <div class="alert alert-dark alert-dilgissible mx-auto w-75 pt-2" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button> {{message}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                    aria-hidden="true">&times;</span></button> {{message}}
         </div>
-        {% endfor %} {% endif %} {% endwith %} {% block content %} {% endblock %}
+        {% endfor %} {% endif %} {% endwith %}
+        {% block content %}
+        {% if leaderboard %}
+        <div class="leaderboard pt-5">
+            <div class="container bg-dark-transparent text-center text-light pb-5">
+                <h1 class="h1 p-2"><u>LEADERBOARD</u></h1>
+                <table class="leaderboard-table w-100 border border-light">
+                    <thead>
+                        <tr class="mb-2 border border-white">
+                            <th class="border border-white p-2">#</th>
+                            <th class="border border-white p-2">Player Name</th>
+                            <th class="border border-white p-2"># of Questions</th>
+                            <th class="border border-white p-2">High Score Score</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for iteration, player in enumerate(leaderboard) %}
+                        <tr>
+                            <td class="border border-white p-2">{{iteration + 1}}</td>
+                            {% if iteration == 0 %}
+                            <td class="border border-white p-2"><i class="fas fa-crown"></i> {{player.name}}</td>
+                            {% else %}
+                            <td class="border border-white p-2">{{player.name}}</td>
+                            {% endif %}
+                            <td class="border border-white p-2">{{player.num_of_question}}</td>
+                            <td class="border border-white p-2">{{player.score}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    {% endblock %}
     </div>
 </body>
 

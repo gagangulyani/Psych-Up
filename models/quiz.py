@@ -1,5 +1,6 @@
 from models.database import Database
 from models.users import User
+from models.history import History
 from bson import ObjectId
 
 
@@ -58,10 +59,11 @@ class Quiz:
 
     @staticmethod
     def get_questions(userID,
-                      limit=10,
+                      limit=1,
                       show_history=False,
                       is_admin=False,
-                      sort=-1):
+                      sort=-1,
+                      sample=0):
 
         display_new_questions = show_history
 
@@ -97,6 +99,12 @@ class Quiz:
                 }
             }
         ]
+        if sample:
+            pipeline.append({
+                "$sample": {
+                    "size": sample
+                }
+            })
         if show_history:
             # deleting query
             # which created a filter to display quesions which user attempted
@@ -132,14 +140,25 @@ class Quiz:
     def attempt_question(usr, answer, question):
         # IMPORTANT: User's ObjectId is converted into string
         #            for storing it as a key in attempts Dictionary
+        userID = str(usr._id)
         result = question.answer == answer
-        question.attempts.update({str(usr._id): {"is_correct": result}})
-        if result:
-            usr.total_score += 10
-            usr.update_user_info()
-        question.update_quiz_info()
-        return result
+        if question.attempts.get(userID, True) or not question.attempts.get(userID).get('is_correct'):
+            question.attempts.update({userID: {"is_correct": result}})
+            if result:
+                usr.total_score += 10
+                usr.update_user_info()
+            question.update_quiz_info()
+            return result
 
+    @staticmethod
+    def count():
+        return Database.count_documents(COLLECTION=Quiz.COLLECTION)
+
+    @staticmethod
+    def remove_player(pid):
+        player = User.get_user_info(pid)
+        player.delete_user()
+        History.delete_history(userID=player._id)    
 
 if __name__ == "__main__":
     # q1.save_quiz()

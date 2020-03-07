@@ -6,7 +6,7 @@
                 <h1 class="border border-light p-4 mb-3 heading-custom" id="pname-profile">{{user.name}}</h1>
                 <h5>Username: {{user.username}}</h5>
                 <h2 class="mt-2"><i class="fas fa-gamepad d-sm-inline d-none"></i> Total Score: {{user.total_score}}</h2>
-                <h2 class="mt-2"><i class="fas fa-crown d-sm-inline d-none"></i> Total Wins: {{user.number_of_wins}}</h2>
+                <h2 class="mt-2"><i class="fas fa-crown d-sm-inline d-none"></i> Total Wins: {{user.total_wins}}</h2>
 
                 <div class="text-center mt-2">
                     <i class="fas fa-users h4 mb-0"></i>
@@ -26,4 +26,5 @@
         </div>
     </div>
 </div>
+{{super()}}
 {% endblock %}

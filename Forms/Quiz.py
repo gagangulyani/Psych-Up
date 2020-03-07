@@ -1,6 +1,8 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, TextAreaField, SelectField
-from wtforms.validators import InputRequired, Length
+from wtforms import (StringField, TextAreaField, SelectField,
+                     HiddenField, IntegerField)
+from wtforms.validators import InputRequired, Length, NumberRange
+from wtforms.widgets import HiddenInput
 
 
 class AddQuestion(FlaskForm):
@@ -17,22 +19,22 @@ class AddQuestion(FlaskForm):
 
     option1 = StringField(
         validators=[
-            Length(5, 15, )
+            Length(5, 30)
         ], render_kw={"placeholder": "Option #1"},)
 
     option2 = StringField(
         validators=[
-            Length(5, 15, )
+            Length(5, 30, )
         ], render_kw={"placeholder": "Option #2"},)
 
     option3 = StringField(
         validators=[
-            Length(5, 15, )
+            Length(5, 30, )
         ], render_kw={"placeholder": "Option #3"},)
 
     option4 = StringField(
         validators=[
-            Length(5, 15, )
+            Length(5, 30, )
         ], render_kw={"placeholder": "Option #4"},)
 
     solution = SelectField('Choose Option as Solution',
@@ -49,3 +51,19 @@ class AddQuestion(FlaskForm):
 
 class EditQuestion(AddQuestion):
     pass
+
+
+class Play(FlaskForm):
+
+    qid = HiddenField(validators=[
+        InputRequired()])
+
+    ans = HiddenField(validators=[
+        InputRequired()])
+
+    current_score = IntegerField(validators=[
+        InputRequired(),
+        NumberRange(min=0)], widget=HiddenInput())
+
+    correct_ans = HiddenField(validators=[
+        InputRequired()])

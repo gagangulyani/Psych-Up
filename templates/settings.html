@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}Settings: {{super()}}{% endblock %}
+{% macro display_errors(error_list) %} {% for error in error_list %}
+<small class="form-text text-danger mt-2">{{error}}</small> {% endfor %} {% endmacro %}
+
+{% block content %}
+<div class="settings bg-dark-transparent text-light">
+    <div class="container">
+        <h1>Settings</h1>
+        <form action="/settings" class="auth-form" method="POST">
+            {{ form.csrf_token }}
+            <div class="form-group">
+                {{form.name.label(class="text-light")}} {{form.name(class="form-control form-control-lg")}} {{display_errors(form.name.errors)}}
+            </div>
+            <div class="form-group">
+                {{form.username.label(class="text-light")}} {{form.username(class="form-control form-control-lg")}} {{display_errors(form.username.errors)}}
+            </div>
+            <div class="form-group">
+                {{form.email.label(class="text-light")}} {{form.email(class="form-control form-control-lg")}}{{display_errors(form.email.errors)}}
+            </div>
+            <div class="form-group">
+                {{form.password.label(class="text-light")}} {{form.password(class="form-control form-control-lg")}}{{display_errors(form.password.errors)}}
+            </div>
+            <div class="text-right mt-2">
+                <button type="submit" class="btn btn-dark mt-1">Update</button>
+                <a class="btn btn-danger mt-1" href="/settings/delete">Delete Account</a>
+            </div>
+            
+        </form>
+
+    </div>
+</div>
+{% endblock %}

@@ -1,1 +1,87 @@
-{% extends "base.html" %}
+{% extends "base.html" %} {%block title %}Quiz: {{super()}}{%endblock%} {% block content %}
+<div class="container bg-dark-transparent">
+    <h1 class="text-light text-center heading-custom py-3">Time Left <span id='counter'>30</span> seconds..</h1>
+    <form action="{{request.path}}" method="POST">
+        {{ form.csrf_token }}
+        <div class="container">
+            <textarea contenteditable="false" class="form-control form-control-lg form-control-lg-dark mb-2 text-center"
+                id="question" name="question" placeholder="Write your Question" rows="3"
+                spellcheck="false">{{quiz.question}}</textarea>
+            <div class="row">
+                <div class="col-12 col-md-6 mt-2">
+                    <textarea row=2 onclick="setOptvalue(this)" id='opt1'
+                        class="quiz-option text-center pointer form-control form-control-lg form-control-lg-dark mb-1 text-center">{{quiz.options[0]}}</textarea row=2>
+                </div>
+                <div class="col-12 col-md-6 mt-2">
+                    <textarea row=2 onclick="setOptvalue(this)" id = 'opt2' class="quiz-option text-center pointer form-control form-control-lg form-control-lg-dark mb-1 text-center">{{quiz.options[1]}}</textarea row=2>
+                </div>
+                <div class="col-12 col-md-6 mt-2">
+                    <textarea row=2 onclick="setOptvalue(this)" id = 'opt3' class="quiz-option text-center pointer form-control form-control-lg form-control-lg-dark mb-1 text-center">{{quiz.options[2]}}</textarea row=2>
+                </div>
+                <div class="col-12 col-md-6 mt-2">
+                    <textarea row=2 onclick="setOptvalue(this)" id = 'opt4' class="quiz-option text-center pointer form-control form-control-lg form-control-lg-dark mb-1 text-center">{{quiz.options[3]}}</textarea row=2>
+                </div>
+            </div>
+            <div class="d-flex justify-content-end">
+                <h1 class="text-light">Current Score: {{score}}</h1>
+                <span class="d-block"><a href='/final_score' class="btn btn-outline-danger m-2">End Quiz</a></span>
+            </div>
+            {{form.qid()}} {{form.correct_ans()}} {{form.ans(id='answer')}} {{form.current_score()}}
+        </div>
+    </form>
+</div>
+<script>
+    var count = 0;
+    var counter = setInterval(function () {
+        $('#counter').text(Number($('#counter').text()) - 1);
+        if (count == 19) {
+            $('#counter').toggleClass('text-warning');
+            $('#counter').toggleClass('text-danger');
+        }
+
+        if (count == 9) {
+            $('#counter').toggleClass('text-warning');
+        }
+
+        if (++count >= 30) {
+
+            $('textarea:contains({{form.correct_ans.data}})').css({
+                "background": 'green'
+            });
+            setTimeout(function () {
+                window.location.href = '/final_score';
+            }, 1500);
+            clearInterval(counter);
+        }
+    }, 1000);
+
+
+
+
+    function setOptvalue(element) {
+        element = "#" + element.id;
+        document.getElementById('answer').value = $(element).text().trim();
+        console.log(element);
+        if ("{{form.correct_ans.data}}" == $(element).text().trim()) {
+            $(element).css({
+                "background-color": 'green'
+            });
+            setTimeout(function () {
+                $('form').submit();
+            }, 1000);
+        }
+        else {
+            $(element).css({
+                "background-color": 'red'
+            });
+            $('textarea:contains({{form.correct_ans.data}})').css({
+                "background-color": 'green'
+            });
+
+            setTimeout(function () {
+                $('form').submit();
+            }, 1500);
+        }
+    }
+</script>
+{% endblock %}

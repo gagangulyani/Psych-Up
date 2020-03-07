@@ -1,0 +1,492 @@
+[
+    {
+        "question": "Call Number of a Book Means",
+        "options": [
+            "Book Number",
+            "Class Number",
+            "Both (A) and (B) are true",
+            "None of the above"
+        ],
+        "answer": "Both (A) and (B) are true"
+    },
+    {
+        "question": "Accession Number means",
+        "options": [
+            "Call Number of a book",
+            "Unique Number for a book inside a particular library.",
+            "Book Number",
+            "Class number"
+        ],
+        "answer": "Unique Number for a book inside a particular library."
+    },
+    {
+        "question": "How many digits have in the ISSN",
+        "options": [
+            "10",
+            "8",
+            "13",
+            "15"
+        ],
+        "answer": "8"
+    },
+    {
+        "question": "Main use of Shelf list is",
+        "options": [
+            "Cataloging",
+            "Circulation",
+            "Stock Verification",
+            "Book Selection"
+        ],
+        "answer": "Stock Verification"
+    },
+    {
+        "question": "Posting the right person at the right place is called ________",
+        "options": [
+            "Recruitment",
+            "Coaching",
+            "Deployment",
+            "Induction"
+        ],
+        "answer": "Recruitment"
+    },
+    {
+        "question": "TQM is a system of continuous improvement employing participative management and centered on needs of the ________",
+        "options": [
+            "Customers",
+            "Staff",
+            "Organization",
+            "Government"
+        ],
+        "answer": "Organization"
+    },
+    {
+        "question": "Financial support given to libraries are of two types - Recurring and",
+        "options": [
+            "Ad-hoc",
+            "Endowments",
+            "Annual",
+            "Non-recurring"
+        ],
+        "answer": "Endowments"
+    },
+    {
+        "question": "Principle of maximum aggregate benefit is concerned with__",
+        "options": [
+            "Growth of library",
+            "Library use",
+            "Library service",
+            "Library fee"
+        ],
+        "answer": "Library service"
+    },
+    {
+        "question": "\u2026\u2026.. takes items of expenditure for libraries as the working data for allocation of funds.",
+        "options": [
+            "Method of details",
+            "Per capita method",
+            "Principle of economy",
+            "Library budget"
+        ],
+        "answer": "Library budget"
+    },
+    {
+        "question": "A budget which mainly covers items of current revenue and expenditure is called __.",
+        "options": [
+            "Programme budget",
+            "Welfare economics",
+            "Current budgeting",
+            "Capital budgeting"
+        ],
+        "answer": "Capital budgeting"
+    },
+    {
+        "question": "The library budget of a university is passed by the ?",
+        "options": [
+            "Senate",
+            "Executive Council",
+            "Academic Council",
+            "Research Council"
+        ],
+        "answer": "Executive Council"
+    },
+    {
+        "question": "In fund accounting _______ fund can not be used for other purposes.",
+        "options": [
+            "Recurring",
+            "Non-recurring",
+            "Restricted",
+            "Encumbering"
+        ],
+        "answer": "Recurring"
+    },
+    {
+        "question": "Scrutiny of financial transactions is called",
+        "options": [
+            "Budgeting",
+            "Programming",
+            "Accounting",
+            "Auditing"
+        ],
+        "answer": "Auditing"
+    },
+    {
+        "question": "What are the two parts of the annual report of the library",
+        "options": [
+            "Primary and Secondary",
+            "Analytical and Systematic",
+            "Upper and Lower",
+            "Descriptive and Statistical"
+        ],
+        "answer": "Descriptive and Statistical"
+    },
+    {
+        "question": "How many columns are there in the accession register?",
+        "options": [
+            "10",
+            "12",
+            "14",
+            "16"
+        ],
+        "answer": "14"
+    },
+    {
+        "question": "PPBS relates to",
+        "options": [
+            "Book selection",
+            "Journal selection",
+            "Budgeting",
+            "Library records"
+        ],
+        "answer": "Budgeting"
+    },
+    {
+        "question": "Zero based budget is concerned with",
+        "options": [
+            "Present",
+            "Past",
+            "Future",
+            "Remote future"
+        ],
+        "answer": "Future"
+    },
+    {
+        "question": "Another term of PERT is",
+        "options": [
+            "CPM",
+            "POSDCORB",
+            "MBO",
+            "HRM"
+        ],
+        "answer": "CPM"
+    },
+    {
+        "question": "POSDCORB is related to",
+        "options": [
+            "Library cataloguing",
+            "Library reference service",
+            "Library administration",
+            "Library automation"
+        ],
+        "answer": "Library administration"
+    },
+    {
+        "question": "What are the standard size of the Accession Register is",
+        "options": [
+            "16\u201d * 12\u201d",
+            "16\u201d * 13\u201d",
+            "16\u201d * 11\u201d",
+            "16\u201d * 18\u201d"
+        ],
+        "answer": "16\u201d * 13\u201d"
+    },
+    {
+        "question": "A good library building is an outcome of librarian and.",
+        "options": [
+            "Registrar",
+            "Building Corporation",
+            "Finance Officer",
+            "Architect"
+        ],
+        "answer": "Architect"
+    },
+    {
+        "question": "________ are the storage areas for the various types of documents kept in a library.",
+        "options": [
+            "Tasks .",
+            "Racks",
+            "Stacks",
+            "Desks"
+        ],
+        "answer": "Stacks"
+    },
+    {
+        "question": "Study carrels are exclusive areas meant for",
+        "options": [
+            "Students",
+            "Public",
+            "Women",
+            "Researchers"
+        ],
+        "answer": "Researchers"
+    },
+    {
+        "question": "Library catalogue cards are filed in specially designed drawers called",
+        "options": [
+            "Charging tray",
+            "Catalogue cabinet",
+            "Display rack .",
+            "Filling equipment"
+        ],
+        "answer": "Catalogue cabinet"
+    },
+    {
+        "question": "Information Gatekeepers come under ________ sources.",
+        "options": [
+            "Documentary",
+            "Human",
+            "Institutional",
+            "Neo-conventional"
+        ],
+        "answer": "Documentary"
+    },
+    {
+        "question": "________ is a legal document and can be used as a source of industrial information.",
+        "options": [
+            "Report",
+            "Law Review",
+            "Patent",
+            "Specification"
+        ],
+        "answer": "Specification"
+    },
+    {
+        "question": "In Encyclopaedia Britianica ___________ acts as an index to macropaedia.",
+        "options": [
+            "Bibliography",
+            "Introduction Part",
+            "Propaedia",
+            "Micropaedia"
+        ],
+        "answer": "Micropaedia"
+    },
+    {
+        "question": "One of the book selection principles states that \u201cthe best reading for the largest number at the \u2026\u2026\u2026\u2026\u2026Cost.\u201d",
+        "options": [
+            "Maximum",
+            "Medium",
+            "Least",
+            "Zero"
+        ],
+        "answer": "Least"
+    },
+    {
+        "question": "Payments for the books purchased can be made only after",
+        "options": [
+            "Accessioning",
+            "Classification",
+            "ataloguing",
+            "Arrangement in the shelve"
+        ],
+        "answer": "Accessioning"
+    },
+    {
+        "question": "The standard size of an accession register is ?",
+        "options": [
+            "15\u201d x 13\u201d",
+            "16 x 13\u201d",
+            "2\u201d x 5\u201d",
+            "5\u201d x 3\u201d"
+        ],
+        "answer": "16 x 13\u201d"
+    },
+    {
+        "question": "Technical section performs mainly two functions namely classification and",
+        "options": [
+            "Accessioning",
+            "Bills payment",
+            "Cataloguing",
+            "Shelving"
+        ],
+        "answer": "Cataloguing"
+    },
+    {
+        "question": "Getting books back from the users and releasing the borrower\u2019s ticket is known as",
+        "options": [
+            "Charging",
+            "Holding",
+            "Reserving",
+            "Discharging"
+        ],
+        "answer": "Discharging"
+    },
+    {
+        "question": "While entering the library the personal belongings of a reader is kept in ________",
+        "options": [
+            "Cloak Room",
+            "Property Counter",
+            "Gate counter",
+            "Store room"
+        ],
+        "answer": "Property Counter"
+    },
+    {
+        "question": "Books misplaced on the shelves by readers are restored. This work is referred to as.",
+        "options": [
+            "Shelving",
+            "Stock verification",
+            "Shelf rectification",
+            "Shifting"
+        ],
+        "answer": "Shelf rectification"
+    },
+    {
+        "question": "Outdated and seldom used books are withdrawn from the library is known as ___________.",
+        "options": [
+            "Shelving",
+            "Weeding",
+            "Circulating",
+            "Guiding"
+        ],
+        "answer": "Weeding"
+    },
+    {
+        "question": "The objective of library binding is ________of the library materials.",
+        "options": [
+            "Proper organisation",
+            "Accessibility.",
+            "Durability",
+            "Humidity control"
+        ],
+        "answer": "Durability"
+    },
+    {
+        "question": "All part and pages of a volume are correctly sequenced in the first stage of binding process known as?",
+        "options": [
+            "Sewing",
+            "Guard",
+            "Pulling",
+            "Collation"
+        ],
+        "answer": "Collation"
+    },
+    {
+        "question": "Sheets before and after the text of a book are called _________. .",
+        "options": [
+            "End papers",
+            "Attach cover",
+            "Head bands",
+            "Gilding"
+        ],
+        "answer": "End papers"
+    },
+    {
+        "question": "Leather being used as one of the binding materials i.e. _________ is the strongest leather.",
+        "options": [
+            "Roan",
+            "Imitation",
+            "Pig skin",
+            "Sheep skin"
+        ],
+        "answer": "Sheep skin"
+    },
+    {
+        "question": "________ has prescribed certain standards for library binding.",
+        "options": [
+            "ILA",
+            "ALA",
+            "BLA",
+            "NBT"
+        ],
+        "answer": "ALA"
+    },
+    {
+        "question": "A skillful method of providing means mechanism and structural elements to. streamline organizational work is known as _______",
+        "options": [
+            "Strategic planning",
+            "Role analysis",
+            "Work culture",
+            "Autonomous planning"
+        ],
+        "answer": "Strategic planning"
+    },
+    {
+        "question": "Calcutta Public Library was established during",
+        "options": [
+            "15th Century",
+            "16th Century",
+            "19th Century",
+            "20th Century."
+        ],
+        "answer": "19th Century"
+    },
+    {
+        "question": "______ budgeting does not take into account what happened in the past but emphasizes on current activities.",
+        "options": [
+            "Formula",
+            "Performance",
+            "Programme",
+            "Zero-base"
+        ],
+        "answer": "Performance"
+    },
+    {
+        "question": "The library budget of a university is passed by the?",
+        "options": [
+            "Senate",
+            "Executive Council",
+            "Academic Council",
+            "Research Council"
+        ],
+        "answer": "Executive Council"
+    },
+    {
+        "question": "In fund accounting _______ fund cannot be used for other purposes.",
+        "options": [
+            "Recurring",
+            "Non-recurring",
+            "Restricted",
+            "Encumbering"
+        ],
+        "answer": "Recurring"
+    },
+    {
+        "question": "Scrutiny of financial transactions is called",
+        "options": [
+            "Budgeting",
+            "Programming",
+            "Accounting",
+            "Auditing"
+        ],
+        "answer": "Auditing"
+    },
+    {
+        "question": "________ is one of the records of circulation section.",
+        "options": [
+            "Accession Register",
+            "Day book",
+            "Catalogue Card",
+            "AACR-2 (R)"
+        ],
+        "answer": "Accession Register"
+    },
+    {
+        "question": "The marketing concepts in Library Service include",
+        "options": [
+            "analysis planning implementation and control",
+            "advertising planning analysis and control",
+            "distribution control analysis implementation",
+            "indexing planning control and implementation."
+        ],
+        "answer": "advertising planning analysis and control"
+    },
+    {
+        "question": "There are a few basic factors which may be applied in winning the hearts of the readers. They are",
+        "options": [
+            "Psychological factor environmental factor social factor",
+            "Self factor psychological factor service factor",
+            "Service factor philosophical factor self factor",
+            "Technological factor service factor self factor."
+        ],
+        "answer": "Technological factor service factor self factor."
+    }
+]

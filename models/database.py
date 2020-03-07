@@ -9,12 +9,12 @@ class Database(object):
     """
     CURSOR = None
     COLLECTION = None
-    
+
     def __init__(self, DB_NAME='Psych-Up'):
         self.client = MongoClient('localhost', 27017)
         self.DB_NAME = DB_NAME
         Database.CURSOR = self.client[DB_NAME]
-        
+
     @staticmethod
     def insert_one(COLLECTION, dict_):
         return Database.CURSOR[COLLECTION].insert_one(dict_).inserted_id
@@ -28,8 +28,13 @@ class Database(object):
         return Database.CURSOR[COLLECTION].find_one(query)
 
     @staticmethod
-    def find(COLLECTION, query={}, to_list=True):
-        result = Database.CURSOR[COLLECTION].find(query)
+    def find(COLLECTION, query={}, to_list=True, sort={}, limit=1000):
+        if not sort:
+            result = Database.CURSOR[COLLECTION].find(query, limit=limit)
+        else:
+            result = Database.CURSOR[COLLECTION].find(
+                query, limit=limit).sort(sort)
+
         if to_list:
             return list(result)
         return result
@@ -65,7 +70,7 @@ class Database(object):
     @staticmethod
     def update_one(COLLECTION, query, update_query):
         Database.CURSOR[COLLECTION].update_one(query, update_query)
-    
+
     @staticmethod
     def update_many(COLLECTION, query, update_query):
         Database.CURSOR[COLLECTION].update_many(query, update_query)

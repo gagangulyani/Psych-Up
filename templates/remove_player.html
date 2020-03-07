@@ -1,0 +1,18 @@
+{% extends "base.html" %} {% block titile %} Remove Player: {{super()}}{% endblock %} {% block content %}
+<div class="container text-center text-light bg-dark-transparent py-5">
+    <div class="row py-5">
+        <div class="col-10 mx-auto py-5">
+            <h1 class="heading-custom display-4">Confirm Remove?</h1>
+            <p class="text-muted">Deleting Player will remove him from all player's
+                circle as well as from Leaderboard. His scores and wins will also be removed.
+            </p>
+            <div class="d-flex justify-content-center p-4 pb-5">
+                <a href="/admin/dashboard/Quiz/Remove" class="btn btn-outline-light m-1">No, I am Not Sure..</a>
+                <form action="{{request.path}}" method="POST">
+                    <button type="submit" class="btn btn-outline-danger m-1">Yes, Remove Player!</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

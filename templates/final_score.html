@@ -1,0 +1,12 @@
+{% extends "base.html" %} {% block title %} Final Score: {{super()}} {% endblock %} {% block content %}
+<div class="container">
+    <div class='text-center text-light'>
+        <h1 class="pt-5">Final Score: {{score}}</h1>
+        <div class="justify-content-between mt-2">
+            <a class='btn btn-outline-light p-2 m-2' href="/play">Play Again!</a>
+            <a class='btn btn-outline-light p-2 m-2' href='/player/{{current_user.username}}'>Go to Profile</a>
+        </div>
+    </div>
+</div>
+{{super()}}
+{% endblock %}

@@ -1,22 +1,19 @@
+from bson import ObjectId
+from uuid import uuid4
 from flask import Flask, render_template
-from flask import (
-    flash, request, redirect,
-    render_template, Flask, url_for,
-    make_response
-)
-from flask_login import (
-    login_user, current_user,
-    logout_user, LoginManager,
-    login_required)
+from flask import (flash, request, redirect, render_template,
+                   Flask, url_for, make_response, session)
+from flask_login import (login_user, current_user, logout_user,
+                         LoginManager, login_required)
 from flask_paranoid import Paranoid
 from models.users import User
 from models.quiz import Quiz
+from models.history import History
 from Forms.SignUp import SignupForm
 from Forms.Login import LoginForm
-from Forms.Quiz import (AddQuestion,
-                        EditQuestion)
-from uuid import uuid4
-from bson import ObjectId
+from Forms.Quiz import AddQuestion, EditQuestion, Play
+from Forms.Settings import SettingsForm
+from random import randint
 
 DEBUG = True
 
@@ -34,6 +31,16 @@ def load_user(_id):
         )
     return User.get_user_info(
         _id=_id
+    )
+
+# print(History.show_history())
+
+
+@app.context_processor
+def inject_stage_and_region():
+    return dict(
+        enumerate=enumerate,
+        leaderboard=History.show_history()
     )
 
 
@@ -80,6 +87,40 @@ def admin_dashboard():
     if current_user.is_authenticated and current_user.is_admin:
         return render_template('admin_dashboard.html')
     return render_template("404.html")
+
+
+@app.route('/leaderboard')
+def leaderboard():
+    if not History.show_history():
+        flash('No Player Data is available at the moment')
+        return redirect('/')
+    return render_template('leaderboard.html')
+
+
+@login_required
+@app.route('/admin/dashboard/Players/view')
+@app.route('/admin/dashboard/Players/remove')
+@app.route('/admin/dashboard/Players/remove/<string:pid>', methods=['GET', 'POST'])
+def player_dashboard(pid=None):
+    if current_user.is_authenticated and current_user.is_admin:
+        players = User.get_all_users()
+        if request.path == '/admin/dashboard/Players/view':
+            return render_template('view_players.html', players=players)
+
+        elif pid and len(pid) == 36 and pid.replace('-', '').isalnum():
+            print(len(pid) == 36 and pid.replace('-', '').isalnum())
+            if not User.get_user_info(username=pid):
+                flash('Can\'t find player')
+                return redirect('/admin/dashboard/Players/view')
+
+            if request.method == "POST":
+                Quiz.remove_player(pid)
+                flash('Player Removed!')
+                return redirect('/admin/dashboard/Players/view')
+            return render_template('remove_player.html', players=players)
+
+        return render_template('view_players.html', players=players)
+    return render_template('404.html')
 
 
 @login_required
@@ -134,7 +175,7 @@ def quiz_dashboard(qid=None):
         if not qid:
             questions = Quiz.get_questions(userID=None,
                                            show_history=True,
-                                           is_admin=True)
+                                           is_admin=True, limit=1000)
             for question in questions:
                 question._id = str(question._id)
 
@@ -195,7 +236,7 @@ def quiz_dashboard(qid=None):
         if not qid:
             questions = Quiz.get_questions(userID=None,
                                            show_history=True,
-                                           is_admin=True)
+                                           is_admin=True, limit=1000)
             for question in questions:
                 question._id = str(question._id)
 
@@ -206,9 +247,77 @@ def quiz_dashboard(qid=None):
 
 
 @login_required
-@app.route('/play')
-def play_quiz():
-    return render_template("select_quiz.html")
+@app.route('/final_score')
+def display_score():
+    if session.get('score') != None:
+        current_user.total_score += session.get('score')
+        current_user.update_user_info()
+        score = session.pop('score')
+        History.find_and_update(userID=current_user._id, score=score)
+        return render_template('final_score.html', score=score)
+    else:
+        flash('You haven\'t played the Quiz yet!')
+        return redirect('/')
+
+
+@login_required
+@app.route('/play', methods=['GET', 'POST'])
+@app.route('/play/<string:qid>', methods=["POST"])
+def play_quiz(qid=None):
+    form = Play()
+    if not current_user.is_authenticated:
+        flash('Please Login for playing Quiz..')
+        return redirect('/login')
+    if request.method == "POST":
+        if form.validate():
+            if question := Quiz.get_question(form.qid.data):
+                if Quiz.attempt_question(current_user, form.ans.data, question):
+                    session['score'] += 10
+                    return redirect('/play')
+                else:
+                    return redirect('/final_score')
+            return render_template('404.html')
+        else:
+            errors = []
+            errors.append(form.qid.errors)
+            errors.append(form.ans.errors)
+            errors.append(form.current_score.errors)
+            errors.append(form.correct_ans.errors)
+            if qid:
+                return redirect('/play/')
+            return str(errors)
+
+    if not qid:
+        if question := Quiz.get_questions(current_user._id, sample=1):
+            # question is a list with one element
+            question = question[0]  # accessing that element
+
+            form.qid.data = str(question._id)
+            if not form.current_score.data:
+                form.current_score.data = 0
+            form.correct_ans.data = question.answer
+        else:
+            flash('Well Done! You have reached the end of the Quiz!')
+            if session.get('score') != None and session.get('score') > 0:
+                current_user.total_wins += 1
+                current_user.update_user_info()
+                return redirect('/final_score')
+            return redirect('/')
+
+    score = form.current_score.data
+
+    if session.get('score'):
+        score += session.get('score')
+        form.current_score.data += session.get('score')
+    else:
+        session['score'] = score = 0
+
+    return render_template(
+        "main_quiz.html",
+        form=form,
+        quiz=question,
+        score=score
+    )
 
 
 @app.route('/login', methods=["GET", "POST"])
@@ -267,7 +376,7 @@ def signup():
 
 @app.route('/player/<string:username>')
 def player(username):
-    if len(username) != 36:
+    if len(username) > 36:
         flash('User Does Not Exist!')
         return redirect('/', 302)
 
@@ -277,31 +386,31 @@ def player(username):
 
 @app.route('/followers/<string:username>')
 def followers(username):
-    if not username and len(username) != 36:
+    if not username and len(username) > 36:
         flash("User Not Found!")
         return redirect('/', 302)
     user = User.get_user_info(username=username)
     if user:
-        return render_template('followers.html', user=user, enumerate=enumerate)
+        return render_template('followers.html', user=user)
     flash("User Not Found!")
     return redirect('/', 302)
 
 
 @app.route('/following/<string:username>')
 def following(username):
-    if not username and len(username) != 36:
+    if not username and len(username) > 36:
         flash("User Not Found!")
         return redirect('/', 302)
     user = User.get_user_info(username=username)
     if user:
-        return render_template('following.html', user=user, enumerate=enumerate)
+        return render_template('following.html', user=user)
     flash("User Not Found!")
     return redirect('/', 302)
 
 
 @app.route('/follow/<string:username>')
 def follow(username):
-    if not username and len(username) != 36:
+    if not username and len(username) > 36:
         flash("User Not Found!")
         return redirect('/', 302)
 
@@ -317,7 +426,7 @@ def follow(username):
 
 @app.route('/unfollow/<string:username>')
 def unfollow(username):
-    if not username and len(username) != 36:
+    if not username and len(username) > 36:
         flash("User Not Found!")
         return redirect('/', 302)
 
@@ -329,6 +438,63 @@ def unfollow(username):
         return redirect('/', 302)
     flash('Please Login before this action!')
     return redirect('/', 302)
+
+
+@app.route('/settings', methods=['GET', 'POST'])
+@app.route('/settings/delete', methods=['GET', 'POST'])
+@login_required
+def settings():
+    if not current_user.is_authenticated:
+        flash('Please Login to continue..')
+        return redirect('/login')
+
+    user = current_user
+
+    form = SettingsForm()
+
+    form.name.render_kw = {'placeholder': user.name}
+    form.username.render_kw = {'placeholder': user.username}
+    form.email.render_kw = {'placeholder': user.email}
+
+    if request.method == 'GET':
+        if request.path == '/settings/delete':
+            return render_template('confirm_remove.html')
+        return render_template('settings.html', user=user, form=form)
+
+    elif request.method == 'POST':
+        if request.path == '/settings/delete':
+            Quiz.remove_player(user.username)
+            flash('Sorry to see you go :(')
+            flash('You will be missed..')
+            return redirect('/')
+
+        if form.validate():
+            if form.name.data.strip() and user.name != form.name.data.strip():
+                user.name = form.name.data.strip()
+                form.name.render_kw = {'placeholder': form.name.data}
+                user.update_user_info()
+                flash('Name Updated Successfully!')
+            if form.username.data.strip() and user.username != form.username.data.strip():
+                user.username = form.username.data.strip().lower()
+                form.username.render_kw = {
+                    'placeholder': form.username.data.strip().lower()}
+                user.update_user_info()
+                flash('Username Updated Successfully!')
+            if form.email.data.strip() and user.email != form.email.data.strip():
+                user.email = form.email.data.strip().lower()
+                form.email.render_kw = {
+                    'placeholder': form.email.data.strip().lower()}
+                user.update_user_info()
+                flash('Email Address Updated Successfully!')
+            if form.password.data and len(form.password.data) in [i for i in range(8, 17)]:
+                user.password = form.password.data
+                user.update_user_info(settings=True)
+                flash('Password Updated Successfully!')
+
+            form.email.data = form.name.data = form.username.data = ""
+        return render_template('settings.html', user=user, form=form)
+
+    return render_template('404.html')
 
 
 @app.route('/logout')

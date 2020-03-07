@@ -12,9 +12,7 @@ class LoginForm(FlaskForm):
 
     email = StringField("Email Address or Username", validators=[
         InputRequired(
-            'Please Enter your Username Or Email Address'),
-        Length(min=4, max=100,
-               message='Invalid Username'), isUser2],
+            'Please Enter your Username Or Email Address'), isUser2],
         render_kw={"placeholder": "Enter Email Address or Username"})
 
     password = PasswordField(validators=[

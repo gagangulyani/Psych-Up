@@ -17,7 +17,7 @@ class User:
         email=None,
         age=0,
         name=None,
-        number_of_wins=0,
+        total_wins=0,
         history=[],
         _id=None,
         followers=[],
@@ -31,7 +31,7 @@ class User:
         self.password = password
         self.email = email
         self.age = age
-        self.number_of_wins = number_of_wins
+        self.total_wins = total_wins
         self.history = history
         self._id = _id
         self.is_admin = is_admin
@@ -55,7 +55,7 @@ class User:
             "password": self.password,
             "email": self.email,
             "age": self.age,
-            "number_of_wins": self.number_of_wins,
+            "total_wins": self.total_wins,
             "history": self.history,
             "followers": self.followers,
             "following": self.following,
@@ -107,13 +107,28 @@ class User:
             return User.to_class(User.DB.find_one(User.COLLECTION, {'_id': _id}))
         return User.to_class(User.DB.find_one(User.COLLECTION, {'email': email}))
 
-    def update_user_info(self):
+    def update_user_info(self, settings=False):
+        if settings:
+            self.password = generate_password_hash(password=self.password,
+                                                   method="pbkdf2:sha512")
         User.DB.update_one(User.COLLECTION,
                            {"_id": self._id},
                            {'$set': self.to_dict()}
                            )
 
     def delete_user(self):
+        Database.update_many(
+            COLLECTION=User.COLLECTION,
+            query={},
+            update_query={
+                "$pull": {
+                    "followers": {
+                        "$in": [self._id]
+                    },
+                    "following": self._id
+                }
+            }
+        )
         return User.DB.delete_one(User.COLLECTION, {'_id': self._id})
 
     def follow_user(self, user):
@@ -222,7 +237,7 @@ class User:
 
     @staticmethod
     def get_all_users():
-        return User.DB.find(User.COLLECTION)
+        return [User.to_class(i) for i in User.DB.find(User.COLLECTION)]
 
     def __repr__(self):
         return str(
@@ -231,7 +246,7 @@ class User:
                 "username": self.username,
                 "password": self.password,
                 "age": self.age,
-                "number_of_wins": self.number_of_wins,
+                "total_wins": self.total_wins,
                 "history": self.history,
                 "followers": self.followers,
                 "following": self.following,

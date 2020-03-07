@@ -10,3 +10,4 @@ models/__pycache__/
 __pycache__/.vscode/
 .vscode/
 Forms/__pycache__/*
+__pycache__/routes.cpython-38.pyc
