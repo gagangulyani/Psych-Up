@@ -116,8 +116,7 @@ def player_dashboard(pid=None):
         if request.path == '/admin/dashboard/Players/view':
             return render_template('view_players.html', players=players)
 
-        elif pid and len(pid) == 36 and pid.replace('-', '').isalnum():
-            print(len(pid) == 36 and pid.replace('-', '').isalnum())
+        elif pid and len(pid) < 100 and (pid.replace('-', '').isalnum() or pid.replace('_', '').isalnum()):
             if not User.get_user_info(username=pid):
                 flash('Can\'t find player')
                 return redirect('/admin/dashboard/Players/view')
