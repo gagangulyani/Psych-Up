@@ -178,7 +178,7 @@ class User:
                 "$graphLookup": {
                     "from": "Users",
                     "startWith": "$followers",
-                    "connectFromField": "followers",
+                    "connectFromField": "{}.followers".format(self._id),
                     "connectToField": "_id",
                     "as": "followers"
                 }
@@ -208,7 +208,7 @@ class User:
                 "$graphLookup": {
                     "from": "Users",
                     "startWith": "$following",
-                    "connectFromField": "following",
+                    "connectFromField": "{}.following".format(self._id),
                     "connectToField": "_id",
                     "as": "following"
                 }

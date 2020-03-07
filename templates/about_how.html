@@ -1,0 +1,3 @@
+{% extends "base.html" %} {%block title %}About: {{super()}}{%endblock%} {% macro display_errors(error_list) %}
+{% for error in error_list %}
+<small class="form-text text-danger">{{error}}</small> {% endfor %} {% endmacro %} {% block content %}{%endblock%}

@@ -9,10 +9,12 @@ from flask_paranoid import Paranoid
 from models.users import User
 from models.quiz import Quiz
 from models.history import History
+from models.contact import Contact
 from Forms.SignUp import SignupForm
 from Forms.Login import LoginForm
 from Forms.Quiz import AddQuestion, EditQuestion, Play
 from Forms.Settings import SettingsForm
+from Forms.Contact import ContactForm
 from random import randint
 
 DEBUG = True
@@ -46,7 +48,7 @@ def inject_stage_and_region():
 
 # Login Manager Config
 login_manager.init_app(app)
-login_manager.session_protection = "strong"
+login_manager.session_protection = None  # for flask paranoid
 login_manager.login_view = 'login'
 login_manager.login_message_category = "info"
 
@@ -85,7 +87,14 @@ def index():
 @app.route('/admin/dashboard')
 def admin_dashboard():
     if current_user.is_authenticated and current_user.is_admin:
-        return render_template('admin_dashboard.html')
+        messages = Contact.get_messages()
+        return render_template(
+            'admin_dashboard.html',
+            messages=messages,
+            zip=zip,
+            range=range, len=len,
+            str=str
+        )
     return render_template("404.html")
 
 
@@ -509,6 +518,50 @@ def logout():
 @app.errorhandler(404)
 def not_found(e):
     return render_template("404.html")
+
+
+@app.route('/about/how')
+@app.route('/about/why')
+@app.route('/about/who')
+def about():
+    path = request.path.split('/')[-1]
+    return render_template(f'about_{path}.html')
+
+
+@app.route('/contact', methods=['GET', 'POST'])
+@app.route('/contact/delete/<string:mid>', methods=['GET', 'POST'])
+def contact(mid=None):
+    if request.path == '/contact':
+        form = ContactForm()
+        if current_user.is_authenticated:
+            form.email.data = current_user.email
+            form.name.data = current_user.name
+
+        if request.method == 'POST':
+            if form.validate():
+                Contact(
+                    email=form.email.data,
+                    title=form.title.data,
+                    name=form.name.data,
+                    message=form.message.data
+                ).save_message()
+                flash('Message Sent to Admin!')
+                return redirect('/')
+        return render_template('contact.html', form=form)
+
+    if current_user.is_authenticated:
+        if current_user.is_admin and mid and len(mid) == 24 and mid.isalnum():
+            if Contact.get_message(mid):
+                if request.method == 'POST':
+                    Contact.delete_message(mid)
+                    flash('Message Deleted!')
+                    return redirect('/')
+                return render_template(
+                    'confirm_message_delete.html',
+                    mid=mid
+                )
+            return redirect('/')
+    return render_template('404.html')
 
 
 if __name__ == "__main__":

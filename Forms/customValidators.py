@@ -5,6 +5,15 @@ from models.database import Database
 import re
 
 
+def checkEmpty(form, field):
+    data = field.data
+    punct = punctuation + ' '
+    for i in punct:
+        data = data.replace(i, '')
+    if not data or len(data) < 3:
+        raise ValidationError('Input too short!')
+
+
 def checkForJunk(form=None, field=None, usrtext=None, ignorechar="_"):
     punct = punctuation.replace(ignorechar, '')
     if not field:
@@ -22,6 +31,16 @@ def checkForJunk(form=None, field=None, usrtext=None, ignorechar="_"):
                 else:
                     raise ValidationError(
                         'Only Alphabets, Numbers and Underscores Allowed!')
+
+
+def checkForJunkContact(form, field):
+    not_allowed = "{}:><#$%^&*()"
+
+    for i in field.data:
+        if i in not_allowed:
+            raise ValidationError(
+                'Special Characters are not Allowed!'
+            )
 
 
 def StrongPassword(form, field):
@@ -110,15 +129,13 @@ def Length_custom(form, field, min=8, max=16):
     data = field.data.strip()
     print(f'checking len of data {data}\n..')
     msg = 'Field must be between {} and {} characters long.'.format(min, max)
-    
+
     if len(data) == 0:
         return None
 
     if len(data) > 16 or len(data) < 8:
         print('Raised Validation Error')
         raise ValidationError(msg)
-    
-    
 
 
 def Length_Email(form, field):

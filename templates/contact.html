@@ -1,0 +1,41 @@
+{% extends "base.html" %} {%block title %}Contact: {{super()}}{%endblock%} {% macro display_errors(error_list) %}
+{% for error in error_list %}
+<small class="form-text text-danger">{{error}}</small> {% endfor %} {% endmacro %}
+
+{% block content %}
+<div class="settings bg-dark-transparent text-light">
+    <div class="container">
+        <h1 class="text-center">Contact Us</h1>
+        <form action="/contact" class="auth-form" method="POST">
+            {{ form.csrf_token }}
+            <div class="form-group">
+                {{form.name.label(class="text-light h5")}}<span class="text-danger"><sup>*</sup></span>
+                {{form.name(class="form-control form-control-lg")}} {{display_errors(form.name.errors)}}
+            </div>
+            <div class="form-group">
+                {{form.email.label(class="text-light h5")}}<span class="text-danger"><sup>*</sup></span>
+                <p class="text-muted">We'll
+                    never share your email with anyone else.</p>{{form.email(class="form-control form-control-lg")}}
+                {{display_errors(form.email.errors)}}
+            </div>
+            <div class="form-group">
+                {{form.title.label(class="text-light h5")}}<span class="text-danger"><sup>*</sup></span>
+                {{form.title(class="form-control form-control-lg")}}{{display_errors(form.title.errors)}}
+            </div>
+            <div class="form-group">
+                {{form.message.label(class="text-light h5")}}<span class="text-danger"><sup>*</sup></span>
+                <p class="text-muted">Don't Include any Special Characters</p>
+                <p class="text-muted">Message shouldn't be more than 200 characters long..</p>
+                {{form.message(class="form-control form-control-lg")}}{{display_errors(form.message.errors)}}
+            </div>
+            <p class="p-2 text-muted">Fields marked with <span class="text-danger"><sup>*</sup></span> are mandatory</p>
+            <div class="d-flex mt-1 justify-content-end">
+                <a class="btn btn-danger m-1" href="/">Discard Changes</a>
+                <button type="submit" class="btn btn-success m-1">Send Message</button>
+            </div>
+
+        </form>
+
+    </div>
+</div>
+{% endblock %}

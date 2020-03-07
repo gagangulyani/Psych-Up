@@ -4,15 +4,15 @@
         background-color: #ffffffe6;
         border-radius: 2em;
     }
-    
+
     #dashboard_title {
         color: black;
     }
-    
+
     .dashboard_options ol li {
         font-size: 1.5em;
     }
-    
+
     .dashboard_options ol a {
         background-color: rgba(0, 0, 0, 0.5);
     }
@@ -59,12 +59,27 @@
             </div class="container">
         </div>
 
-        <div class="col-12 text-center">
+        <div class="col-12">
             <hr>
-            <h2>Messages</h2>
-            {% if messages %} {% for message in messages %}
-            <p>{{message}}</p>
-            {% endfor %} {% endif %}
+            <div class="text-center">
+                <h2>Messages</h2>
+                <h5 class="text-muted"><u> Total Messages: {{messages | length}}</u></h5>
+            </div>
+            <div class="p-2">
+                {% if messages %} {% for iteration, message in zip(range(len(messages) - 1,-1,-1), messages) %}
+                <div class="border border-dark m-1 p-2 bg-dark text-light">
+                    <span class="text-muted">Message #{{iteration + 1}}:</span>
+                    <div class="d-flex justify-content-lg-between">
+                    <h4 class="pl-2"><span class="text-muted">Title: </span>{{message.title}}</h4>
+                    <a class="btn btn-danger" href="/contact/delete/{{str(message._id)}}">Delete Message</a>
+                    </div>
+                    <div class="p-4" style="background-color: rgba(255,255,255,0.08);">
+                        <p><u class="text-muted">Message</u></p>
+                        <p>{{message.message}}</p>
+                    </div>
+                </div>
+                {% endfor %} {% endif %}
+            </div>
         </div>
     </div>
 </div>
