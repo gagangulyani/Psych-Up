@@ -68,14 +68,25 @@
                     {% endif %}
                     <a class="nav-link p-1" href="/play">Play</a>
                 </li>
+                {% if request.path == "/leaderboard" %}
+                <li class="nav-item active">
+                    {% else %}
+                <li class="nav-item">
+                    {% endif %}
+                    <a class="nav-link p-1" href="/leaderboard">Leaderboard</a>
+                </li>
+                {% if request.path == "/about/why" or request.path == "/about/how" or request.path == "/about/who"%}
+                <li class="nav-item active dropdown">
+                {% else %}
                 <li class="nav-item dropdown">
+                {% endif %}
                     <a class="nav-link p-1 dropdown-toggle" href="" id="navbarDropdown" role="button"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         About Psych-Up
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="/about/why">Why it is Needed</a>
-                        <a class="dropdown-item" href="/about/how">How it is made</a>
+                        <a class="dropdown-item" href="/about/why">Why it's Made</a>
+                        <a class="dropdown-item" href="/about/how">How it's made</a>
                         <a class="dropdown-item" href="/about/who">Who Made it</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="/contact">Get in touch with Us</a>

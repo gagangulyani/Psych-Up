@@ -1,3 +1,22 @@
-{% extends "base.html" %} {%block title %}About: {{super()}}{%endblock%} {% macro display_errors(error_list) %}
+{% extends "base.html" %} {%block title %}Who Made It: {{super()}}{%endblock%} {% macro display_errors(error_list) %}
 {% for error in error_list %}
-<small class="form-text text-danger">{{error}}</small> {% endfor %} {% endmacro %} {% block content %}{%endblock%}
+<small class="form-text text-danger">{{error}}</small>
+{% endfor %}
+{% endmacro %}
+
+{% block content %}
+<div class="bg-dark-transparent text-light text-center py-5">
+    <h1 class="display-1">Who Made It</h1>
+    <div class="container py-5">
+        <h4><span class="h3">Psych-Up</span> is made by:</h4>
+        <div class="container pb-5 pt-2" style='font-size: 1.7rem;'>
+            <h1 class="display-4">Gagan Deep Singh</h1>
+            <q class="p-2">I'm a 21-year-old Programmer who likes to code for fun.</q>
+            <div>
+                <a class="btn btn-outline-light" target="_blank" href="mailto:gagangulyanig@gmail.com">Contact Me</a>
+                <a class="btn btn-outline-light" target="_blank" href="https://github.com/gagangulyani">My Projects</a>
+            </div>
+        </div>
+    </div>
+</div>
+{%endblock%}

@@ -1,3 +1,30 @@
-{% extends "base.html" %} {%block title %}About: {{super()}}
+{% extends "base.html" %} {%block title %}Who Made It: {{super()}}{%endblock%} {% macro display_errors(error_list) %}
+{% for error in error_list %}
+<small class="form-text text-danger">{{error}}</small>
+{% endfor %}
+{% endmacro %}
+
+{% block content %}
+<div class="bg-dark-transparent text-light text-center py-5">
+    <h1 class="display-1">Why It's Made</h1>
+    <div class="container py-5">
+        <div class="container pb-5 pt-2" style='font-size: 1.7rem;'>
+            <q class="p-2">
+                <p>
+                    It's made as a Memoir of a Command Line Quiz App which
+                    I wrote as my final project for my Class XII Board Exams
+                    back in 2017.
+                </p>
+                <p>
+                    I lost that project somewhere but I always wanted it to
+                    have a proper User Interface similar to KBC (Kon Banega Crorepati!).
+                </p>
+                <p>
+                    So, here it is, Psych-Up, Quiz App!
+                </p>
+            </q>
+        </div>
+        <h1 class="display-4">- Gagan Deep Singh</h1>
+    </div>
+</div>
 {%endblock%}
-{% block content %}{%endblock%}

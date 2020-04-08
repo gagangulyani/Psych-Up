@@ -1,3 +1,27 @@
-{% extends "base.html" %} {%block title %}About: {{super()}}{%endblock%} {% macro display_errors(error_list) %}
+{% extends "base.html" %} {%block title %}How It's Made{{super()}}{%endblock%} {% macro display_errors(error_list) %}
 {% for error in error_list %}
-<small class="form-text text-danger">{{error}}</small> {% endfor %} {% endmacro %} {% block content %}{%endblock%}
+<small class="form-text text-danger">{{error}}</small>
+{% endfor %}
+{% endmacro %}
+
+{% block content %}
+<div class="bg-dark-transparent text-light text-center py-5">
+    <h1 class="display-1">How It's Made?</h1>
+    <div class="container p-5">
+        <h2><span class="h1">Psych-Up</span> consists of the following Tech Stack:</h2>
+        <ul class='p-5 row' style='font-size: 1.7rem;'>
+            <div class="col-12 col-lg-6">
+                <li>HTML</li>
+                <li>CSS</li>
+                <li>Javascript</li>
+                <li>Bootstrap 4</li>
+            </div>
+            <div class="col-12 col-lg-6">
+                <li>Python</li>
+                <li>Flask</li>
+                <li>MongoDB</li>
+            </div>
+        </ul>
+    </div>
+</div>
+{%endblock%}
